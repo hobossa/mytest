@@ -9,4 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_1" />
+    <Button
+        android:id="@+id/go_baidu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/go_baidu"
+        android:onClick="goBaidu"/>
 </LinearLayout>
