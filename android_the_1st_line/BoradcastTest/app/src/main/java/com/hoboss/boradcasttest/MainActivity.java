@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Intent intent = new Intent("com.hoboss.boradcasttest.MY_BROADCAST");
-                // Android 8.0 or higher can no longer register broadcast receivers for
+                // Android 8.0 or higher can no longer static register broadcast receivers for
                 // implicit broadcasts in their manifest.
                 Intent intent = new Intent(MainActivity.this, MyBoradcastReceiver.class);
                 sendBroadcast(intent);
