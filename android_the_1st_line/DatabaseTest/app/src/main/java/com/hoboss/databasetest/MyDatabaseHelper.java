@@ -3,11 +3,13 @@ package com.hoboss.databasetest;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
+    private final String TAG = "MyDatabaseHelper";
     public static final String CREATE_BOOK = "create table book ("
             + "id integer primary key autoincrement, "
             + "author text, "
@@ -32,7 +34,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_BOOK);
         db.execSQL(CREATE_CATEGORY);
-        Toast.makeText(context, "create succeeded", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "onCreate: succeeded");
+        // Toast.makeText(context, "create succeeded", Toast.LENGTH_SHORT).show();
     }
 
     @Override
