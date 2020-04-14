@@ -15,7 +15,7 @@ public class SecondActivity extends AppCompatActivity {
     private static final String TAG
             = SecondActivity.class.getSimpleName();
     // Unique tag required for the intent extra
-    public static final String EXTRA_MESSAGE
+    private static final String EXTRA_MESSAGE
             = "com.hoboss.twoactivities.extra.MESSAGE";
     // Unique tag for the intent reply.
     public static final String EXTRA_REPLY =
