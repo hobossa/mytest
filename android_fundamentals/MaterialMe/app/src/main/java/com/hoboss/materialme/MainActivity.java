@@ -2,6 +2,7 @@ package com.hoboss.materialme;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,11 +24,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        int gridColumnCount =
+                getResources().getInteger(R.integer.grid_column_count);
+
         // Initialize the RecyclerView.
         mRecyclerView = findViewById(R.id.recyclerView);
 
         // Set the Layout Manager.
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, gridColumnCount));
 
         // Initialize the ArrayList that will contain the data.
         mSportsData = new ArrayList<>();
@@ -36,11 +41,20 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new SportsAdapter(this, mSportsData);
         mRecyclerView.setAdapter(mAdapter);
 
+        int swipeDirs;
+        if (gridColumnCount > 1) {
+            //  In landscape (horizontal) orientation, gridColumnCount is 2,
+            //  so that the user can no longer swipe to delete a card.
+            swipeDirs = 0;
+        } else {
+            swipeDirs = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+        }
+
         ItemTouchHelper helper =
                 new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
                         ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT |
                                 ItemTouchHelper.DOWN | ItemTouchHelper.UP,
-                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                        swipeDirs) {
                     @Override
                     public boolean onMove(@NonNull RecyclerView recyclerView,
                                           @NonNull RecyclerView.ViewHolder viewHolder,
