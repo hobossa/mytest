@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.widget.TextView;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
