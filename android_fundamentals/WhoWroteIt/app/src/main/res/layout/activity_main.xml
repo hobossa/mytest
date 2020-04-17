@@ -38,6 +38,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bookInput"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchButtonEx"
+        android:layout_marginTop="8dp"
+        android:text="@string/button_text_ex"
+        android:onClick="searchBooksEx"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchButton"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,7 +56,7 @@
         android:layout_marginTop="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchButton"/>
+        app:layout_constraintTop_toBottomOf="@id/searchButtonEx"/>
 
     <TextView
         android:layout_width="wrap_content"
