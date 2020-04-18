@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 String toastMessage;
                 if (isChecked) {
                     //deliverNotification(MainActivity.this);
-                    long repeatInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
+                    long repeatInterval = 5000;//AlarmManager.INTERVAL_FIFTEEN_MINUTES;
                     long triggerTime = SystemClock.elapsedRealtime()
                             + repeatInterval;
                     if (alarmManager != null) {
