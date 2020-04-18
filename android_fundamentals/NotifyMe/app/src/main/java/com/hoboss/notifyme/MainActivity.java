@@ -6,7 +6,10 @@ import androidx.core.app.NotificationCompat;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -23,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
     private NotificationManager mNotifyManager;
     private static final int NOTIFICATION_ID = 0;
+
+    private static final String ACTION_UPDATE_NOTIFICATION =
+            "com.hoboss.notifyme.ACTION_UPDATE_NOTIFICATION";
+    private NotificationReceiver mReceiver = new NotificationReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,32 +62,14 @@ public class MainActivity extends AppCompatActivity {
         // button_cancel.setOnClickListener((v)->{cancelNotification();});
 
         setNotificationButtonState(true, false, false);
+        registerReceiver(mReceiver, new IntentFilter(ACTION_UPDATE_NOTIFICATION));
         createNotificationChannel();
     }
 
-    public void sendNotification() {
-        NotificationCompat.Builder notifyBuilder = getNotificationBuilder();
-        mNotifyManager.notify(NOTIFICATION_ID, notifyBuilder.build());
-        setNotificationButtonState(false, true, true);
-    }
-
-    public void updateNotification() {
-        Bitmap androidImage = BitmapFactory
-                .decodeResource(getResources(),R.drawable.mascot_1);
-        NotificationCompat.Builder notifyBuilder = getNotificationBuilder();
-        // BigPictureStyle is a subclass of NotificationCompat.Style which provides alternative
-        // layouts for notifications.
-        notifyBuilder.setStyle(new NotificationCompat.BigPictureStyle()
-                .bigPicture(androidImage)
-                .setBigContentTitle("Notification Updated!"));
-        mNotifyManager.notify(NOTIFICATION_ID, notifyBuilder.build());
-
-        setNotificationButtonState(false, false, true);
-    }
-
-    public void cancelNotification() {
-        mNotifyManager.cancel(NOTIFICATION_ID);
-        setNotificationButtonState(true, false, false);
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(mReceiver);
+        super.onDestroy();
     }
 
     public void createNotificationChannel() {
@@ -126,5 +115,45 @@ public class MainActivity extends AppCompatActivity {
         button_notify.setEnabled(isNotifyEnabled);
         button_update.setEnabled(isUpdateEnabled);
         button_cancel.setEnabled(isCancelEnabled);
+    }
+
+    public void sendNotification() {
+        Intent updateIntent = new Intent(ACTION_UPDATE_NOTIFICATION);
+        PendingIntent updatePendingIntent = PendingIntent.getBroadcast
+                (this, NOTIFICATION_ID, updateIntent, PendingIntent.FLAG_ONE_SHOT);
+        NotificationCompat.Builder notifyBuilder = getNotificationBuilder();
+        notifyBuilder.addAction(R.drawable.ic_update, "Update Nofification", updatePendingIntent);
+        mNotifyManager.notify(NOTIFICATION_ID, notifyBuilder.build());
+        setNotificationButtonState(false, true, true);
+    }
+
+    public void updateNotification() {
+        Bitmap androidImage = BitmapFactory
+                .decodeResource(getResources(), R.drawable.mascot_1);
+        NotificationCompat.Builder notifyBuilder = getNotificationBuilder();
+        // BigPictureStyle is a subclass of NotificationCompat.Style which provides alternative
+        // layouts for notifications.
+        notifyBuilder.setStyle(new NotificationCompat.BigPictureStyle()
+                .bigPicture(androidImage)
+                .setBigContentTitle("Notification Updated!"));
+        mNotifyManager.notify(NOTIFICATION_ID, notifyBuilder.build());
+
+        setNotificationButtonState(false, false, true);
+    }
+
+    public void cancelNotification() {
+        mNotifyManager.cancel(NOTIFICATION_ID);
+        setNotificationButtonState(true, false, false);
+    }
+
+    public class NotificationReceiver extends BroadcastReceiver {
+        public NotificationReceiver() {
+
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateNotification();
+        }
     }
 }
