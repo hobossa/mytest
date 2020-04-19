@@ -21,6 +21,8 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceManager;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        PreferenceManager.setDefaultValues(this, R.xml.messages_preferences, false);
+        PreferenceManager.setDefaultValues(this, R.xml.sync_preferences, false);
     }
 
     /**
@@ -105,6 +110,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_contact:
                 displayToast(getString(R.string.action_contact_message));
+                return true;
+            case R.id.action_settings:
+                Intent settingsIntent = new Intent(this,
+                        SettingsActivity.class);
+                startActivity(settingsIntent);
                 return true;
             default:
                 // Do nothing
