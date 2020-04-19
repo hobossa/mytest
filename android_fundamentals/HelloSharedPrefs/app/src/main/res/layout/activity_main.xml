@@ -115,5 +115,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/count_button"
         app:layout_constraintTop_toBottomOf="@+id/guideline_lower" />
-    
+
 </androidx.constraintlayout.widget.ConstraintLayout>
