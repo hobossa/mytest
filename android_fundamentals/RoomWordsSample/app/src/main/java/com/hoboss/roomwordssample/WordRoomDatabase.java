@@ -45,23 +45,20 @@ public abstract class WordRoomDatabase extends RoomDatabase {
      */
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
-        private final WordDao mDao;
+        private final WordDao dao;
         String[] words = {"dolphin", "crocodile", "cobra", "zebra", "hippo", "gorilla", "monkey", "snake"};
 
         PopulateDbAsync(WordRoomDatabase db) {
-            mDao = db.wordDao();
+            dao = db.wordDao();
         }
 
         @Override
         protected Void doInBackground(final Void... params) {
-            // Start the app with a clean database every time.
-            // Not needed if you only populate the database
-            // when it is first created
-            mDao.deleteAll();
-
-            for (int i = 0; i <= words.length - 1; i++) {
-                Word word = new Word(words[i]);
-                mDao.insert(word);
+            if (dao.getAnyWord().length < 1) {
+                for (int i = 0; i <= words.length - 1; i++) {
+                    Word word = new Word(words[i]);
+                    dao.insert(word);
+                }
             }
             return null;
         }
