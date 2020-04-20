@@ -50,6 +50,10 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         notifyDataSetChanged();
     }
 
+    public Word getWordAtPosition (int position) {
+        return words.get(position);
+    }
+
     class WordViewHolder extends RecyclerView.ViewHolder {
         private final TextView wordItemView;
 
