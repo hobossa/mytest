@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FloatBoard</string>
+    <string name="show_floating_board">show floating board</string>
+    <string name="hide_floating_board">hide floating board</string>
+</resources>
