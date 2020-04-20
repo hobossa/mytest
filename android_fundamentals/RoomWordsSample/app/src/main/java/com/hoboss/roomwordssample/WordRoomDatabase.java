@@ -46,7 +46,7 @@ public abstract class WordRoomDatabase extends RoomDatabase {
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final WordDao mDao;
-        String[] words = {"dolphin", "crocodile", "cobra"};
+        String[] words = {"dolphin", "crocodile", "cobra", "zebra", "hippo", "gorilla", "monkey", "snake"};
 
         PopulateDbAsync(WordRoomDatabase db) {
             mDao = db.wordDao();
