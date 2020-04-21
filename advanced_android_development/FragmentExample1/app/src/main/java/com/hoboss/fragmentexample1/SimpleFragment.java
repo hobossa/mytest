@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -48,6 +50,21 @@ public class SimpleFragment extends Fragment {
                 }
             }
         });
+
+        final RatingBar ratingBar = rootView.findViewById(R.id.rating_bar);
+        // Set the rating bar onCheckedChanged listener.
+        ratingBar.setOnRatingBarChangeListener
+                (new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar,
+                                                float rating, boolean fromUser) {
+                        // Get rating and show Toast with rating.
+                        String myRating = (getString(R.string.my_rating) +
+                                String.valueOf(ratingBar.getRating()));
+                        Toast.makeText(getContext(), myRating,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
         return rootView;
     }
 }
