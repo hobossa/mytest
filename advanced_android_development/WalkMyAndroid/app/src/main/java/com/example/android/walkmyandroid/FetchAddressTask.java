@@ -19,12 +19,13 @@ public class FetchAddressTask extends AsyncTask<Location, Void, String> {
     private Context mContext;
     private OnTaskCompleted mListener;
 
+    interface OnTaskCompleted {
+        void onTaskCompleted(String result);
+    }
+
     FetchAddressTask(Context applicationContext, OnTaskCompleted listener) {
         mContext = applicationContext;
         mListener = listener;
-    }
-    interface OnTaskCompleted {
-        void onTaskCompleted(String result);
     }
 
     @Override
