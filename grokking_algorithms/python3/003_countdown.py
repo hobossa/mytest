@@ -1,13 +1,14 @@
 # coding=utf8
 import sys
 
+
 def countdown(i):
     # base case
     print(i)
-    if i <=0 :
+    if i <= 0:
         return
     # recursive case
-    else :
+    else:
         countdown(i-1)
 
 

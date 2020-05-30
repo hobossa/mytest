@@ -1,6 +1,7 @@
 # coding=utf8
 import sys
 
+
 def findSmallest(arr):
     smallest = arr[0]
     smallest_index = 0
