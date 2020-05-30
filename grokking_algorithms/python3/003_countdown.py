@@ -9,7 +9,7 @@ def countdown(i):
         return
     # recursive case
     else:
-        countdown(i-1)
+        countdown(i - 1)
 
 
 def run():
