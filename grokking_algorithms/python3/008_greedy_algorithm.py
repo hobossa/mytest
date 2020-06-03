@@ -1,4 +1,4 @@
-# coding=utf8
+# coding=utf-8
 import sys
 
 # You pass an array in, and it gets converted to a set.
