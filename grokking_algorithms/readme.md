@@ -2,7 +2,7 @@
 - page 146
 - O(log n): binary search,
 - O(n): simple find
-- O(n * log n): 
+- O(n * log n):
 - O(n*n): selection sort
 - O(n!): 旅行商
 ---
@@ -12,8 +12,8 @@
 
 - 广度优先搜索 breadth first search
     - 复杂度: O(人数+边数) 或 O(V + E)
-    - 解决：（非加权图） 
-        1. 从A节点出发有到达B节点的路径吗？ 
+    - 解决：（非加权图）
+        1. 从A节点出发有到达B节点的路径吗？
         2. 从A节点出发到达B节点的最短路径？
     - 实现：
         1. 把A节点加入节点队列
@@ -77,7 +77,7 @@
         5. 伪代码
         ```
         if word_a[i] == word_b[j]:
-            cell[i][j] = cell[i-1][j-1]
+            cell[i][j] = cell[i-1][j-1] + 1
         else:
             cell[i][j] = 0
         ```
@@ -87,7 +87,7 @@
         3. 伪代码
         ```
         if word_a[i] == word_b[j]:
-            cell[i][j] = cell[i-1][j-1]
+            cell[i][j] = cell[i-1][j-1] + 1
         else:
             cell[i][j] = max(cell[i-1][j], cell[i][j-1])
         ```
@@ -114,7 +114,7 @@
     - 并行算法
         - 并行管理开销
         - 负载均衡
-    
+
     - 分布式算法(一种特殊的并行算法)
     - MapReduce, 一种流行的分布式算法
         - 映射 map
@@ -123,9 +123,9 @@
     - 布隆过滤器 和 HyperLogLog
         - 布隆过滤器是一种概率型数据结构，它提供的答案有可能不对，但很可能是正确的。
         - HyperLogLog 是一种类似布隆过滤器的算法。
-    
+
     - SHA (secure hash algorithm)算法 (字符串散列算法)，用来保存密码，或比较文件是否相等。
-    
+
     - Simhash 散列算法， 局部敏感，可用来检查两项内容的相似程度。
 
     - Diffie-Hellman算法 密钥交换
