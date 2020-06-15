@@ -1,1 +1,4 @@
-- ch2 You’ve already seen what most of the code does
+- A function uses parameters. A caller passes it arguments.
+- Functions with no return value
+    - Declaring a return type of Unit means that the function returns no value. or uou can omit the return type from the function declaration.
+- ch3 LOCAL VARIABLES UP CLOSE
