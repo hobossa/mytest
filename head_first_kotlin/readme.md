@@ -7,4 +7,4 @@
 - for (x in 10 downTo 1) // [10, 1]
 - for (x in 1..10 step 2)
 -
-- ch4
+- ch4 How to use initializer blocks
