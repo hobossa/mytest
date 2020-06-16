@@ -1,4 +1,10 @@
 - A function uses parameters. A caller passes it arguments.
 - Functions with no return value
     - Declaring a return type of Unit means that the function returns no value. or uou can omit the return type from the function declaration.
-- ch3 LOCAL VARIABLES UP CLOSE
+- You can’t assign a new value to any of a function’s parameter variables. Behind the scenes, the parameter variables are created as local val variables that can’t be reused for other values.
+- for (x in 1..10) // [1,10]
+- for (x in 1 until 10) // [1,10)
+- for (x in 10 downTo 1) // [10, 1]
+- for (x in 1..10 step 2)
+-
+- ch4
