@@ -26,6 +26,12 @@
 }
     ```
 - Using field in your getters and setters in place of the property name is important, as it stops you getting stuck in an endless loop. 
-- 
+- Calling the superclass constructor is mandatory: if the superclass has a primary constructor, then you must call it in the subclass header or your code won’t compile.
+- If you define a property in the superclass using val, you must override it in the subclass if you want to assign a different value to it.
+- If a superclass property has been defined using var, you don’t need to override it in order to assign a new value to it, as var variables can be reused for other values. You can instead assign it a new value in the subclass’s initializer block.
+- Overriding properties lets you do more than assign default values
+    - You can override a property’s getter and setter.
+    - You can override a val property in the superclass with a var property in the subclass.
+    - You can override a property’s type with one of the superclass version’s subtypes. (When you override a property, its type must match the type of the superclass version of the property, or be one of its subtypes.)
 
-- ch5
+- ch5 How to override functions
