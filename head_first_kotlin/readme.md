@@ -37,5 +37,12 @@
     - The function parameters in the subclass must match those in the superclass.
     - The function return types must be compatible. The overriding function must return either the same type, or a subclass type.
 - An overridden function or property stays open until it’s declared final. You don’t have to declare it as open further down the tree. If you want to stop a function or property from being overridden further down the class hierarchy, you can prefix it with final.
+- If you mark a property or function as abstract, you must mark the class as abstract too.
+- Abstract properties and functions don’t need to be marked as open.
+- You MUST implement all abstract properties and functions
+    - The first concrete class in the inheritance tree below the abstract superclass must implement all abstract properties and functions.
+    - With abstract subclasses, you have a choice: you can either implement the abstract properties and functions, or pass the buck to its subclasses.
+- An interface lets you define common behavior OUTSIDE a superclass hierarchy
+- Interface functions can be abstract(without a body) or concrete(has a body)
 
-- ch5 How to override functions
+- ch6 Interface functions can be abstract or concrete
