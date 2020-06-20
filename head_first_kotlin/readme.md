@@ -44,5 +44,10 @@
     - With abstract subclasses, you have a choice: you can either implement the abstract properties and functions, or pass the buck to its subclasses.
 - An interface lets you define common behavior OUTSIDE a superclass hierarchy
 - Interface functions can be abstract(without a body) or concrete(has a body)
-
-- ch6 Interface functions can be abstract or concrete
+- Interface properties
+    - Unlike abstract classes, interfaces can’t have constructors.
+    - Unlike properties in abstract classes, properties that are defined in an interface can’t store state, and therefore can’t be initialized. You can, however, return a value for a property by defining a custom getter.
+    - Interface properties don’t have backing fields. So you can’t, say, define a custom setter that updates a property’s value. However, you can define a setter so long as it doesn't try and reference the property's back field.
+- If a class inherits multiple implementations of the same function or property, the class must provide its own implementation, or specify which version of the function or property it should use.
+    - super<A>.myFunction()
+- ch7 
