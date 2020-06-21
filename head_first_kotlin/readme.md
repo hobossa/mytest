@@ -50,4 +50,21 @@
     - Interface properties don’t have backing fields. So you can’t, say, define a custom setter that updates a property’s value. However, you can define a setter so long as it doesn't try and reference the property's back field.
 - If a class inherits multiple implementations of the same function or property, the class must provide its own implementation, or specify which version of the function or property it should use.
     - super<A>.myFunction()
-- ch7 
+- If you override the equals function, you should override the hashCode function as well. If two objects are considered equal, they must have the same hash code value.
+- Data classes can’t be declared abstract or open, so you can’t use a data class as a superclass. Data classes can implement interfaces, however, and from Kotlin 1.1, they can also inherit from other classes.
+- When the compiler generates implementations for data class functions, such as overriding the equals function and creating a copy function, it only includes the properties defined in the primary constructor. So if you add properties to a data class by defining them in the class body, they won’t be included in any of the generated functions (equals hashCode toString).
+- Every data class must have a primary constructor, which must define at least one parameter. Each parameter must be prefixed with val or var.
+- Each secondary constructor starts with the constructor keyword, and is followed by the set of parameters used to call it. If the class has a primary constructor, each secondary constructor must delegate to it. 
+- Function overloading is when you have two or more functions with the same name but with different argument lists. An overloaded function is NOT the same as an overridden function.
+- Dos and don’ts for function overloading:
+    - The return types can be different.
+    - You can’t change ONLY the return type.
+- data class best practice: u should use val for all fields, and use copy to make another instance whihc has some different field values.
+    - I’ve noticed that you’ve only defined data class properties in the constructor using val. Can I define them using var as well?
+        - You can, but we’d strongly encourage you to make your data classes immutable by only creating val properties. Doing so means that once a data object has been created, it can’t be updated, so you don’t have to worry about some other code changing any of its properties. Only having val properties is also a requirement of certain data structures.
+-  @JvmOverloads. This tells the compiler to automatically create overloaded versions that can more easily be called from Java.
+- Note that in order to annotate the primary constructor with @JvmOverloads, you must also prefix the constructor with the constructor keyword. Most of the time, this keyword is optional.
+
+
+
+- ch8
