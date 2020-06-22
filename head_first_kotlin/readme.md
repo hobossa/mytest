@@ -75,5 +75,3 @@
 -
 
 - ch8 The !! operator deliberately throws a NullPointerException
-
-- test var x = w!!.hunger, when hunger is null, whether an exception will get thrown
