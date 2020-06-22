@@ -10,20 +10,20 @@
 - Initializer blocks are executed when the object is initialized, immediately after the constructor is called, and they’re prefixed with the init keyword. Your class can have multiple initializer blocks. Each one runs in the order in which it appears in the class body, interleaved with any property initializers.
     ``` Kotlin
     class Dog(val name: String, var weight: Int, breed_param: String) {
-    // The above properties defined in the constructor are created first
+        // The above properties defined in the constructor are created first
 
-    init {
-        println("This initializer block runs next.")
+        init {
+            println("This initializer block runs next.")
+        }
+
+        // These following properties are created after the first initializer block has finished.
+        var activites = arrayOf("Walks")
+        var breed = breed_param.toUpperCase()
+
+        init {
+            println("The second initializer block runs after the properties above have been created")
+        }
     }
-
-    // These following properties are created after the first initializer block has finished.
-    var activites = arrayOf("Walks")
-    var breed = breed_param.toUpperCase()
-
-    init {
-        println("The second initializer block runs after the properties above have been created")
-    }
-}
     ```
 - Using field in your getters and setters in place of the property name is important, as it stops you getting stuck in an endless loop.
 - Calling the superclass constructor is mandatory: if the superclass has a primary constructor, then you must call it in the subclass header or your code won’t compile.
@@ -54,7 +54,7 @@
 - Data classes can’t be declared abstract or open, so you can’t use a data class as a superclass. Data classes can implement interfaces, however, and from Kotlin 1.1, they can also inherit from other classes.
 - When the compiler generates implementations for data class functions, such as overriding the equals function and creating a copy function, it only includes the properties defined in the primary constructor. So if you add properties to a data class by defining them in the class body, they won’t be included in any of the generated functions (equals hashCode toString).
 - Every data class must have a primary constructor, which must define at least one parameter. Each parameter must be prefixed with val or var.
-- Each secondary constructor starts with the constructor keyword, and is followed by the set of parameters used to call it. If the class has a primary constructor, each secondary constructor must delegate to it. 
+- Each secondary constructor starts with the constructor keyword, and is followed by the set of parameters used to call it. If the class has a primary constructor, each secondary constructor must delegate to it.
 - Function overloading is when you have two or more functions with the same name but with different argument lists. An overloaded function is NOT the same as an overridden function.
 - Dos and don’ts for function overloading:
     - The return types can be different.
@@ -64,7 +64,16 @@
         - You can, but we’d strongly encourage you to make your data classes immutable by only creating val properties. Doing so means that once a data object has been created, it can’t be updated, so you don’t have to worry about some other code changing any of its properties. Only having val properties is also a requirement of certain data structures.
 -  @JvmOverloads. This tells the compiler to automatically create overloaded versions that can more easily be called from Java.
 - Note that in order to annotate the primary constructor with @JvmOverloads, you must also prefix the constructor with the constructor keyword. Most of the time, this keyword is optional.
+- w?.eat(), This will only call the Wolf’s eat function when w is not null.
+- w?.hunger, If w is not null, the expression returns a reference to the hunger property’s value. If, however, w is null, the value of the entire expression evaluates to null.
+- w?.hunger = 6, The code checks the value of w, and if it’s not null, the code assigns a value of 6 to the hunger property. If w is null, however, the code does nothing.
+- w?.let {println(it.hunger)}, if w is not null, let’s print its hunger. Once you’ve established that the value is not null, you can refer to it in the body of the let using it.
+- w?.hunger ?: -1, if w is not null and its hunger property is not null, return the value of the hunger property, otherwise return -1
+- The Elvis operator ?: is a safe version of an if expression. It returns the value on its left if that is not null. Otherwise, it returns the value on its right.
+- The !! operator deliberately throws a NullPointerException
+    - The not-null assertion operator, or !!, is different to the other methods for dealing with nulls that we’ve looked at over the past few pages. Instead of making sure that your code is safe by handling any null values, the not-null assertion operator deliberately throws a NullPointerException if something turns out to be null.
+-
 
+- ch8 The !! operator deliberately throws a NullPointerException
 
-
-- ch8
+- test var x = w!!.hunger, when hunger is null, whether an exception will get thrown
