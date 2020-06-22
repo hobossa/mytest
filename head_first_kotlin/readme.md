@@ -74,4 +74,4 @@
     - The not-null assertion operator, or !!, is different to the other methods for dealing with nulls that we’ve looked at over the past few pages. Instead of making sure that your code is safe by handling any null values, the not-null assertion operator deliberately throws a NullPointerException if something turns out to be null.
 -
 
-- ch8 The !! operator deliberately throws a NullPointerException
+- ch8 An exception is thrown in exceptional circumstances
