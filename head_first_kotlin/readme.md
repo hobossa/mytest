@@ -72,6 +72,11 @@
 - The Elvis operator ?: is a safe version of an if expression. It returns the value on its left if that is not null. Otherwise, it returns the value on its right.
 - The !! operator deliberately throws a NullPointerException
     - The not-null assertion operator, or !!, is different to the other methods for dealing with nulls that we’ve looked at over the past few pages. Instead of making sure that your code is safe by handling any null values, the not-null assertion operator deliberately throws a NullPointerException if something turns out to be null.
--
+- be careful of the differences between mutableList.sort() and muableList.sorted()
+    - .reverse() and .reversed()
+    - .shuffle() and .shuffled()
+- 
 
-- ch8 An exception is thrown in exceptional circumstances
+- ch9 How to create a Set
+
+- try mutableList.sort() .reverse() .shuffled() 的返回值，以及对原list的影响

@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="529b49a0-eb15-493a-90ab-f1312b35777d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NullValues.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/App.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../008_Recipes/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../008_Recipes/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/../readme.md" afterDir="false" />
-    </list>
+    <list default="true" id="529b49a0-eb15-493a-90ab-f1312b35777d" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -91,5 +76,9 @@
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state width="626" height="223" key="GridCell.Tab.0.right/0.0.1600.870@0.0.1600.870" timestamp="1592844291524" />
+    <state x="349" y="48" key="new project wizard" timestamp="1592932696765">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state x="349" y="48" key="new project wizard/0.0.1600.870@0.0.1600.870" timestamp="1592932696765" />
   </component>
 </project>
