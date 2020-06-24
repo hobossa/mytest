@@ -49,7 +49,7 @@
     - Unlike properties in abstract classes, properties that are defined in an interface can’t store state, and therefore can’t be initialized. You can, however, return a value for a property by defining a custom getter.
     - Interface properties don’t have backing fields. So you can’t, say, define a custom setter that updates a property’s value. However, you can define a setter so long as it doesn't try and reference the property's back field.
 - If a class inherits multiple implementations of the same function or property, the class must provide its own implementation, or specify which version of the function or property it should use.
-    - super<A>.myFunction()
+    - super\<A\>.myFunction()
 - If you override the equals function, you should override the hashCode function as well. If two objects are considered equal, they must have the same hash code value.
 - Data classes can’t be declared abstract or open, so you can’t use a data class as a superclass. Data classes can implement interfaces, however, and from Kotlin 1.1, they can also inherit from other classes.
 - When the compiler generates implementations for data class functions, such as overriding the equals function and creating a copy function, it only includes the properties defined in the primary constructor. So if you add properties to a data class by defining them in the class body, they won’t be included in any of the generated functions (equals hashCode toString).
@@ -72,6 +72,21 @@
 - The Elvis operator ?: is a safe version of an if expression. It returns the value on its left if that is not null. Otherwise, it returns the value on its right.
 - The !! operator deliberately throws a NullPointerException
     - The not-null assertion operator, or !!, is different to the other methods for dealing with nulls that we’ve looked at over the past few pages. Instead of making sure that your code is safe by handling any null values, the not-null assertion operator deliberately throws a NullPointerException if something turns out to be null.
+- safe cast： val wolf = r as? Wolf, This casts r as a Wolf if r holds an object of that type, and returns null if it doesn’t. as? lets you perform a safe explicit cast. If the cast fails, it returns null.
+- try and throw are both expressions
+    - How to use try as an expression, The return value of a try is either the last expression in the try, or the last expression in the catch (the finally block, if there, doesn’t affect the return value).
+    - How to use throw as an expression, throw is also an expression, so you can, for example, use it with the Elvis operator using code like this:
+        ```
+        val h = w?.hunger ?: throw AnimalException()
+        ```
+        - If w and hunger are not null, the above code assigns the value of w’s hunger property to a new variable named h. If, however, w or hunger are null, it throws an AnimalException.
+        - throw has a return type of Nothing. This is a special type that has no values, so a variable of type Nothing? can only hold a null value.
+- You can also use Nothing to denote code locations that can never be reached. You can, say, use it as the return type of a function that never returns: The compiler knows that the code stops execution after fail() is called.
+    ```
+    fun fail(): Nothing {
+        throw BadException()
+    }
+    ```
 -
 
-- ch8 An exception is thrown in exceptional circumstances
+- ch9
