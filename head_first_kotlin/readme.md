@@ -90,6 +90,18 @@
 - be careful of the differences between mutableList.sort() and muableList.sorted()
     - .reverse() and .reversed()
     - .shuffle() and .shuffled()
-- How set determine a obj is duplicate or not
+- How set determine a object is duplicate or not
+    - compare hashCode with the hashCodes of the objects in the set. if the set does not have an object with the same hashCode, the new object is not dumplicate. if the set has an object with the same hashCode, then next step.
+    - uses === compare the new object with objects in the set. if the set has an object === the new object, the new object is dumplicate, else next step
+    - uses == compare the new object with objects in the set. if then set has an object == the new object, the new object is dumplicate, else it is not duplicate.
+- Rules for overriding hashCode and equals
+    - If two objects are equal, they must have matching hash codes.
+    - If two objects are equal, calling equals on either object must return true. In other words, if (a.equals(b)) then (b.equals(a)).
+    - If two objects have the same hash code value, they are not required to be equal. But if they’re equal, they must have the same hash code value.
+    - So, if you override equals, you must override hashCode.
+    - The default behavior of the hashCode function is to generate a unique integer for each object. So if you don’t override hashCode in a non-data class, no two objects of that type can ever be considered equal.
+    - The default behavior of the equals function is to do a === comparison, which tests whether the two references refer to a single object. So if you don’t override equals in a non-data class, no two objects can ever be considered equal since references to two different objects will always contain a different bit pattern.
+- Map.get() returns a null value if the specified key doesn't exist, whereas Map.getValue() throws an exception.
+-
 
-- ch9 How to create a Set
+- ch10
