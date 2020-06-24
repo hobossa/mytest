@@ -90,8 +90,6 @@
 - be careful of the differences between mutableList.sort() and muableList.sorted()
     - .reverse() and .reversed()
     - .shuffle() and .shuffled()
--
+- How set determine a obj is duplicate or not
 
 - ch9 How to create a Set
-
-- try mutableList.sort() .reverse() .shuffled() 的返回值，以及对原list的影响
