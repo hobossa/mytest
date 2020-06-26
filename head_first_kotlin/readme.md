@@ -154,5 +154,9 @@
 - Closure means that a lambda can access any local variables that it captures.
 - List and Set are both types of Iterable, while Map isn’t. This is why some of higher-order functions can't be used directly with map.
 - The reduce function. This function works in a similar way to fold, except that you don’t have to specify the initial value. It automatically uses the first item in the collection as the initial value.
-
+- The delay function pauses the current COROUTINE
+    - A better approach in this situation is to use the coroutines delay function instead. This has a similar effect to Thread.sleep, except that instead of pausing the current thread, it pauses the current coroutine.  It suspends the coroutine for a specified length of time and this allows other code on the same thread to run instead. 
+- The delay function may be used in these two situations:
+    - From inside a coroutine.
+    - From inside a function that the compiler knows may pause, or suspend. When you call a suspendable function (such as delay) from another function, that function must be marked with suspend.
 - Appendix A : coroutines
