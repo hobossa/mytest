@@ -137,6 +137,22 @@
 - When a generic type has no in or out prefix, we say that the type is invariant. An invariant type can only accept references of that specific type.
 - Kotlin’s approach to generics seems different to Java’s. Is that right?
     - Yes, it is. With Java, generic types are always invariant, but you can use wildcards to get around some of the problems this creates. Kotlin, however, gives you far greater control as you can make generic types covariant, contravariant, or leave them as invariant.
+- lambda: You can replace a single parameter with it
+    - If you have a lambda which has a single parameter, and the compiler can infer its type, you can omit the parameter, and refer to it in the lambda body using the keyword it.
+- Use Unite to say a lambda has no return value, ypu can also use Unit to explicitly spedify that you don't want to access ther result of a lambda's calculation.
+    - val myLambda: () -> Unit = {println("Hi!")}
+    - val myLambda: (Int, Int) -> Unit = {x, y -> x +y }
+- higher-order function: A function that uses a lambda as a parameter or return value is known as a higher-order function.
+- You can move the lambda OUTSIDE the ()’s or remove the ()’s entirely
+    - If the final parameter of a function you want to call is a lambda, you can move the lambda argument outside the function call’s parentheses. 
+    - If you have a function that has just one parameter, and that parameter is a lambda, you can omit the parentheses entirely when you call the function.
+- When you have a lambda whose body has multiple lines, the last evaluated expression is used as the lambda’s return value.
+- Use typealias to provide a different name for an existing type
+    - typealias DoubleConversion = (Double) -> Double
+    - typealias DuckArray = Array\<Duck\>
+- Closure, Captured :The variables defined outside the lambda which the lambda can access are sometimes referred to as the lambda’s closure. In clever words, we say that the lambda can access its closure. And we say that the lambda’s closure has captured the variable.
+- Closure means that a lambda can access any local variables that it captures.
+- List and Set are both types of Iterable, while Map isn’t. This is why some of higher-order functions can't be used directly with map.
+- The reduce function. This function works in a similar way to fold, except that you don’t have to specify the initial value. It automatically uses the first item in the collection as the initial value.
 
-
-- ch11
+- Appendix A : coroutines
