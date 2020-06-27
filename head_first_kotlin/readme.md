@@ -159,4 +159,155 @@
 - The delay function may be used in these two situations:
     - From inside a coroutine.
     - From inside a function that the compiler knows may pause, or suspend. When you call a suspendable function (such as delay) from another function, that function must be marked with suspend.
+- Visibility modifiers
+    - Kotlin has four visibility modifiers: public, private, protected and internal.
+    - Visibility modifiers and top level code
+    
+        |  Modifier: |  What it does: |
+        |:-----------|:---|
+        | public     | 	Makes the declaration visible everywhere. This is applied by default, so it can be omitted.  |
+        | private    | Makes the declaration visible to code inside its source file, but invisible elsewhere.  |
+        | protected  | Note that protected isn’t available for declarations at the top level of a source file or package.  |
+        | internal   | Makes the declaration visible inside the same module, but invisible elsewhere. A module is a set of Kotlin files that are compiled together, such as an IntelliJ IDEA module.  |
+    - Remember: if you don’t specify a package, the code is automatically added to a nameless package by default.
+    - Visibility modifiers and classes/interfaces
+
+        |  Modifier: |  What it does: |
+        |:-----------|:---|
+        | public     | Makes the member visible everywhere that the class is visible. This is applied by default, so it can be omitted.  |
+        | private    | Makes the member visible inside the class, and invisible elsewhere.  |
+        | protected  | Makes the member visible inside the class, and any of its subclasses.  |
+        | internal   | Makes the member visible to anything in the module that can see the class.  |
+- Enum classes
+- Sealed Classes
+    - Sealed classes are used for representing restricted class hierarchies, when a value can have one of the types from a limited set, but cannot have any other type.
+    - To declare a sealed class, you put the sealed modifier before the name of the class. A sealed class can have subclasses, but all of them must be declared in the same file as the sealed class itself.
+- Nested and inner classes
+    - A nested class is a class that’s defined inside another class. 
+        - A nested class in Kotlin is like a static nested class in Java.
+        - If you want a nested class to be able to access the properties and functions defined by its outer class, you can do so by making it an inner class.
+        - The key thing is that an inner class instance is always tied to a specific instance of the outer class, so you can’t create an Inner object without first creating an Outer object.
+- Object declarations
+    - If you’re familiar with design patterns, an object declaration is the Kotlin equivalent of a Singleton.
+    - An object declaration defines a class declaration and creates an instance of it in a single statement. 
+        ```
+        object DuckManager {
+            fun herdDucks(){}
+        }
+
+        // using code like this
+        DuckManager.herdDucks()
+
+        ```
+- Class objects and companion objects
+    - Class objects: Add an object declaration to a class to create a single instance of that type which belongs to the class. When you add an object declaration to a class, it creates an object that belongs to that class. One instance of the object is created per class, and it’s shared by all instances of that class.
+        ```
+        class Duck {
+            object DuckFactory {
+                fun create() : Duck = Duck()
+            }
+        }
+
+        // using code like this
+        val newDuck = Duck.DuckFactory.create()
+        ```
+    - Companion objects: A companion object can be used as the Kotlin equivalent to static methods in Java. One object per class can be marked as a companion object using the companion prefix. A companion object is like a class object, except that you can omit the object’s name. If you prefix an object declartion with companion, you no longer need to provide an object name. You can, however, include the name if you want to.
+    - Any functions you add to a companion object are shared by all class instances.
+    - When you create a companion object, you access it by simply referring to the class name.
+        ```
+        class Duck {
+            companion object DuckFactory {  // you can omit the object name： DuckFactory
+                fun create() : Duck = Duck()
+            }
+        }
+
+        // using code like this
+        val newDuck = Duck.create()
+        ```
+- Object expressions
+    - An object expression is an expression that creates an anonymous object on the fly with no predefined type.
+    - Object expressions are mainly used as the equivalent of anonymous inner classes in Java.
+        ```
+        val startingPoint = object {
+            val x = 0
+            val y = 0
+        }
+
+        val myMouseAdapter = object: MouseAdapter() {
+            override fun mouseClicked(e : MouseEvent) {
+                // do something when the mouse is clicked
+            }
+            
+            override fun mouseReleased(e : MouseEvent) {
+                // do something when the mouse is released
+            }
+        }
+        ```
+- Extensions
+    - Extensions let you add new functions and properties to an existing type without you having to create a whole new subtype.
+    - There are also Kotlin extension libraries you can use to make your coding life easier, such as Anko and Android KTX for Android app development.
+        ```
+        // Defines a function named toDollar(), which extends Double
+        fun Double.toDollar() : String {
+            return "$$this" // return the current value, prefixed with $
+        }
+        // create extension properties
+        val String.halfLength
+            get() = length / 2.0
+        ```
+- Design patterns: Object declarations, Singleton, Extensions, Decorator, Delegation.
+    - Object declarations provide a way of implementing the Singleton pattern, as each declaration creates a single instance of that object. Extensions may be used in place of the Decorator pattern as they allow you to extend the behavior of classes and objects. And if you’re interested in using the Delegation pattern as an alternative to inheritance, you can find out more [here](https://kotlinlang.org/docs/reference/delegation.html)
+- Delegation
+    - The by-clause in the supertype list for Derived indicates that b will be stored internally in objects of Derived and the compiler will generate all the methods of Base that forward to b.
+        ```
+        interface Base {
+            fun print()
+        }
+
+        class BaseImpl(val x: Int) : Base {
+            override fun print() { print(x) }
+        }
+
+        class Derived(b: Base) : Base by b
+
+        fun main() {
+            val b = BaseImpl(10)
+            Derived(b).print()
+        }
+        ```
+- Delegated Properties [docs](https://kotlinlang.org/docs/reference/delegated-properties.html)
+    -lazy properties: the value gets computed only upon first access;
+    - observable properties: listeners get notified about changes to this property;
+    - storing properties in a map, instead of a separate field for each property.
+        ```
+        import kotlin.reflect.KProperty
+
+        class Delegate {
+            operator fun getValue(thisRef: Any?, property: KProperty<*>): String {
+                return "$thisRef, thank you for delegating '${property.name}' to me!"
+            }
+        
+            operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {
+                println("$value has been assigned to '${property.name}' in $thisRef.")
+            }
+        }
+
+        class Example {
+            var p: String by Delegate()
+        }
+
+        val e = Example()
+        // This prints: NEW has been assigned to ‘p’ in Example@33a17727.
+        println(e.p)
+        // This prints: NEW has been assigned to ‘p’ in Example@33a17727.
+        e.p = "NEW"
+        ```
+    - Note that since Kotlin 1.1 you can declare a delegated property inside a function or code block, it shouldn't necessarily be a member of a class.
+    - Standard Delegates
+        - Lazy: the first call to get() executes the lambda passed to lazy() and remembers the result, subsequent calls to get() simply return the remembered result.
+        - Observable: The handler is called every time we assign to the property (after the assignment has been performed). 
+            - If you want to intercept assignments and "veto" them, use vetoable() instead of observable(). The handler passed to the vetoable is called before the assignment of a new property value has been performed.
+- return, break, continue with labels
+
+
 - Appendix A : coroutines
