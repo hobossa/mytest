@@ -276,7 +276,7 @@
         }
         ```
 - Delegated Properties [docs](https://kotlinlang.org/docs/reference/delegated-properties.html)
-    -lazy properties: the value gets computed only upon first access;
+    - lazy properties: the value gets computed only upon first access;
     - observable properties: listeners get notified about changes to this property;
     - storing properties in a map, instead of a separate field for each property.
         ```
