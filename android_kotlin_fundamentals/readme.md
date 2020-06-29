@@ -18,6 +18,9 @@
         - [android] and [layout]
         - [android] "hello world"
 ----
+maven { url 'https://maven.aliyun.com/repository/public/' }
+maven { url 'https://maven.aliyun.com/repository/jcenter/' }
+----
 - Note the generatedJava folder. This folder contains files that Android Studio generates when it builds the app. Don't edit anything in this folder, because your changes might be overridden when you rebuild the app.
 - The tools namespace is used when you want to define placeholder content that is only used in the preview or the design editor in Android Studio. Attributes using the tools namespace are removed when you compile the app.
 - An important thing to note about vector drawables is that they are supported in API 21 onwards. We can use Android X compatibility library to support vector drawables(back to API level 7)
@@ -40,5 +43,6 @@
     - If you want your app to work with versions lower than Android 4.2; that is, if the app's targetSdkVersion or minSdkVersion is 16 or lower:
         - Add "start" and end" in addition to "left" and "right".
         - For example, use both android:paddingLeft and android:paddingStart.
--
-- https://codelabs.developers.google.com/codelabs/kotlin-android-training-constraint-layout/index.html#0
+- 
+
+- https://codelabs.developers.google.com/codelabs/kotlin-android-training-constraint-layout/index.html#9
