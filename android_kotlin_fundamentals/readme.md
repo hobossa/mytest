@@ -30,6 +30,15 @@
     - Change the android:src attribute in the <ImageView> element to be app:srcCompat.
     ```app:srcCompat="@drawable/empty_dice"```
     - Build and run your app. You won't see anything different on the screen, but now your app doesn't need to use generated PNG files for the dice images no matter where the runs, which means a smaller app file.
-
-
-- https://codelabs.developers.google.com/codelabs/kotlin-android-training-images-compat/#0
+- Right/left versus start/end
+    - "Right" and "left" always refer to the right and left sides of the screen, whether your app uses a left-to-right (LTR) flow or a right-to-left (RTL) flow. "Start" and "end" always refer to the start and end of the flow:
+        - For a LTR flow, start = left and end=right.
+        - For a RTL flow, start=right and end=left.
+    - If your app targets API level 17 (Android 4.2) or higher:
+        - Use "start" and "end" instead of "left" and "right".
+        - For example, android:layout_marginLeft should become android:layout_marginStart to support RTL languages.
+    - If you want your app to work with versions lower than Android 4.2; that is, if the app's targetSdkVersion or minSdkVersion is 16 or lower:
+        - Add "start" and end" in addition to "left" and "right".
+        - For example, use both android:paddingLeft and android:paddingStart.
+-
+- https://codelabs.developers.google.com/codelabs/kotlin-android-training-constraint-layout/index.html#0
