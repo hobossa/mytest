@@ -43,6 +43,6 @@ maven { url 'https://maven.aliyun.com/repository/jcenter/' }
     - If you want your app to work with versions lower than Android 4.2; that is, if the app's targetSdkVersion or minSdkVersion is 16 or lower:
         - Add "start" and end" in addition to "left" and "right".
         - For example, use both android:paddingLeft and android:paddingStart.
-- 
+- A [chain](https://developer.android.com/training/constraint-layout/#constrain-chain) is a group of views that are linked to each other with bidirectional constraints.
 
-- https://codelabs.developers.google.com/codelabs/kotlin-android-training-constraint-layout/index.html#9
+- https://codelabs.developers.google.com/codelabs/kotlin-android-training-data-binding-basics/index.html#0
