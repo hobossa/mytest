@@ -5,33 +5,37 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import com.hoboss.aboutme.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    lateinit var editText: EditText
-    lateinit var nicknameTextView: TextView
-    lateinit var buttonDone: Button
+
+    private lateinit var binding: ActivityMainBinding
+    private val myName = MyName("Aleks Haecky")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        buttonDone = findViewById<Button>(R.id.done_button)
-        buttonDone.setOnClickListener {
+        // setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        binding.myName = myName
+
+        binding.doneButton.setOnClickListener {
             addNickname(it)
         }
 
-        editText = findViewById(R.id.nickname_edit)
-        nicknameTextView = findViewById(R.id.nickname_text)
-        nicknameTextView.setOnClickListener { updateNickname(it) }
+        binding.nicknameText.setOnClickListener { updateNickname(it) }
     }
 
     private fun addNickname(view: View) {
-        nicknameTextView.text = editText.text
-        editText.visibility = View.GONE
-        buttonDone.visibility = View.GONE
-        nicknameTextView.visibility = View.VISIBLE
+        binding.apply {
+            myName?.nickname = nicknameEdit.text.toString()
+            invalidateAll()
+            nicknameEdit.visibility = View.GONE
+            doneButton.visibility = View.GONE
+            nicknameText.visibility = View.VISIBLE
+        }
+
         // Hide the keyboard.
         val inputMethodManager =
             getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -39,14 +43,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateNickname(view: View) {
-        editText.visibility = View.VISIBLE
-        buttonDone.visibility = View.VISIBLE
-        nicknameTextView.visibility = View.GONE
-        // Set the focus to the edit text.
-        editText.requestFocus()
-        // Show the keyboard.
-        val inputMethodManager =
-            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.showSoftInput(editText, 0)
+        binding.apply {
+            nicknameEdit.visibility = View.VISIBLE
+            doneButton.visibility = View.VISIBLE
+            nicknameText.visibility = View.GONE
+            // Set the focus to the edit text.
+            nicknameEdit.requestFocus()
+            // Show the keyboard.
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.showSoftInput(nicknameEdit, 0)
+        }
     }
 }
