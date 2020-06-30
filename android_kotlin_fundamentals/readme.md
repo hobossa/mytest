@@ -18,8 +18,10 @@
         - [android] and [layout]
         - [android] "hello world"
 ----
+```
 maven { url 'https://maven.aliyun.com/repository/public/' }
 maven { url 'https://maven.aliyun.com/repository/jcenter/' }
+```
 ----
 - Note the generatedJava folder. This folder contains files that Android Studio generates when it builds the app. Don't edit anything in this folder, because your changes might be overridden when you rebuild the app.
 - The tools namespace is used when you want to define placeholder content that is only used in the preview or the design editor in Android Studio. Attributes using the tools namespace are removed when you compile the app.
@@ -44,5 +46,11 @@ maven { url 'https://maven.aliyun.com/repository/jcenter/' }
         - Add "start" and end" in addition to "left" and "right".
         - For example, use both android:paddingLeft and android:paddingStart.
 - A [chain](https://developer.android.com/training/constraint-layout/#constrain-chain) is a group of views that are linked to each other with bidirectional constraints.
+- Data binding has the following benefits:
+    - Code is shorter, easier to read, and easier to maintain than code that uses findByView().
+    - Data and views are clearly separated. This benefit of data binding becomes increasingly important later in this course.
+    - The Android system only traverses the view hierarchy once to get each view, and it happens during app startup, not at runtime when the user is interacting with the app.
+    - You get type safety for accessing views. (Type safety means that the compiler validates types while compiling, and it throws an error if you try to assign the wrong type to a variable.)
+
 
 - https://codelabs.developers.google.com/codelabs/kotlin-android-training-data-binding-basics/index.html#0
