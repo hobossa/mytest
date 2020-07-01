@@ -53,4 +53,5 @@ maven { url 'https://maven.aliyun.com/repository/jcenter/' }
     - You get type safety for accessing views. (Type safety means that the compiler validates types while compiling, and it throws an error if you try to assign the wrong type to a variable.)
 
 
-- https://codelabs.developers.google.com/codelabs/kotlin-android-training-data-binding-basics/index.html#0
+
+- https://codelabs.developers.google.com/codelabs/kotlin-android-training-add-navigation/index.html#7
