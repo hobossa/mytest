@@ -51,7 +51,12 @@ maven { url 'https://maven.aliyun.com/repository/jcenter/' }
     - Data and views are clearly separated. This benefit of data binding becomes increasingly important later in this course.
     - The Android system only traverses the view hierarchy once to get each view, and it happens during app startup, not at runtime when the user is interacting with the app.
     - You get type safety for accessing views. (Type safety means that the compiler validates types while compiling, and it throws an error if you try to assign the wrong type to a variable.)
+- If you use the same ID for the menu item as for the destination fragment, you don't need to write any code at all to implement the onClick listener!
+- the Safe Args plugin, which generates NavDirection classes
+    - Use one of the generated NavDirection classes to pass type-safe arguments between the GameFragment and the game-state fragments.
+    - pass parameters from one fragment to another. To prevent bugs in these transactions and make them type-safe, you use a Gradle plugin called [Safe Args](https://developer.android.com/topic/libraries/architecture/navigation/navigation-pass-data#Safe-args). The plugin generates NavDirection classes, and you add these classes to your code.
+    - In some cases, for example if you are not using Gradle, you can't use the Safe Args plugin. In these cases, you can use Bundles to directly pass data.
+- 
 
 
-
-- https://codelabs.developers.google.com/codelabs/kotlin-android-training-add-navigation/index.html#7
+- https://codelabs.developers.google.com/codelabs/kotlin-android-training-lifecycles-logging/index.html#0
