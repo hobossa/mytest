@@ -70,6 +70,13 @@ maven { url 'https://maven.aliyun.com/repository/jcenter/' }
     - Lifecycle observers, which observe the lifecycle state and perform tasks when the lifecycle changes. Lifecycle observers implement the LifecycleObserver interface.
 - Restore bundle data
     - If the activity is being re-created, the onRestoreInstanceState() callback is called after onStart(), also with the bundle. Most of the time, you restore the activity state in onCreate(). But because onRestoreInstanceState() is called after onStart(), if you ever need to restore some state after onCreate() is called, you can use onRestoreInstanceState().
-
+- Important: Always use ViewModelProvider to create ViewModel objects rather than directly instantiating an instance of ViewModel.
+    - During configuration changes such as screen rotations, UI controllers such as fragments are re-created. However, ViewModel instances survive. If you create the ViewModel instance using the ViewModel class, a new object is created every time the fragment is re-created. 
+    ```
+    viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
+    ```
+- ViewModelFactory : You'll pass in the arguments during the ViewModel initialization using the factory method pattern.
+    - In this task, you create a ViewModel with a parameterized constructor for the score fragment and a factory method to instantiate the ViewModel.
+- 
 
 - https://codelabs.developers.google.com/codelabs/kotlin-android-training-lifecycles-logging/index.html#0
