@@ -90,7 +90,12 @@ maven { url 'https://maven.aliyun.com/repository/jcenter/' }
     - Data in a MutableLiveData object can be changed, as the name implies. Inside the ViewModel, the data should be editable, so it uses MutableLiveData.
     - Data in a LiveData object can be read, but not changed. From outside the ViewModel, data should be readable, but not editable, so the data should be exposed as LiveData.
 - Usually, LiveData delivers updates to the observers only when data changes. An exception to this behavior is that observers also receive updates when the observer changes from an inactive to an active state.
-
+- Data binding with ViewModel and LiveData
+    - Donot forget to specify th fragment view as the lifecycle owner of the bindings. This is used so that the binding can observe LiveData updates
+    ```
+    binding.lifecycleOwner = viewLifecycleOwner
+    ```
+- 
 
 
 - https://codelabs.developers.google.com/codelabs/kotlin-android-training-lifecycles-logging/index.html#0
