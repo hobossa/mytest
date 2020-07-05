@@ -77,6 +77,20 @@ maven { url 'https://maven.aliyun.com/repository/jcenter/' }
     ```
 - ViewModelFactory : You'll pass in the arguments during the ViewModel initialization using the factory method pattern.
     - In this task, you create a ViewModel with a parameterized constructor for the score fragment and a factory method to instantiate the ViewModel.
-- 
+- several characteristics of LiveData:
+    - LiveData is observable, which means that an observer is notified when the data held by the LiveData object changes.
+    - LiveData holds data; LiveData is a wrapper that can be used with any data
+    - LiveData is lifecycle-aware. When you attach an observer to the LiveData, the observer is associated with a LifecycleOwner (usually an Activity or Fragment. The LiveData only updates observers that are in an active lifecycle state such as STARTED or RESUMED. You can read more about LiveData and observation here.
+- Attach observers to the LiveData objects
+    - Why use viewLifecycleOwner?
+        - Fragment views get destroyed when a user navigates away from a fragment, even though the fragment itself is not destroyed. This essentially creates two lifecycles, the lifecycle of the fragment, and the lifecycle of the fragment's view. Referring to the fragment's lifecycle instead of the fragment view's lifecycle can cause [subtle bugs](https://www.youtube.com/watch?v=pErTyQpA390&feature=youtu.be&t=349) when updating the fragment's view. Therefore, when setting up observers that affect the fragment's view you should:
+            1. Set up the observers in onCreateView()
+            2. Pass in viewLifecycleOwner to observers
+- MutableLiveData vs. LiveData:
+    - Data in a MutableLiveData object can be changed, as the name implies. Inside the ViewModel, the data should be editable, so it uses MutableLiveData.
+    - Data in a LiveData object can be read, but not changed. From outside the ViewModel, data should be readable, but not editable, so the data should be exposed as LiveData.
+- Usually, LiveData delivers updates to the observers only when data changes. An exception to this behavior is that observers also receive updates when the observer changes from an inactive to an active state.
+
+
 
 - https://codelabs.developers.google.com/codelabs/kotlin-android-training-lifecycles-logging/index.html#0
