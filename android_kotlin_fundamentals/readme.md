@@ -95,7 +95,17 @@ maven { url 'https://maven.aliyun.com/repository/jcenter/' }
     ```
     binding.lifecycleOwner = viewLifecycleOwner
     ```
+- entities and queries
+    - n entity represents an object or concept, and its properties, to store in the database. An entity class defines a table, and each instance of that class represents a row in the table. Each property defines a column. In your app, the entity is going to hold information about a night of sleep.
+    - A query is a request for data or information from a database table or combination of tables, or a request to perform an action on the data. Common queries are for getting, inserting, and updating entities. For example, you could query for all the sleep nights on record, sorted by start time.
+- Data access object (DAO). On Android, the DAO provides convenience methods for inserting, deleting, and updating the database. Think of a DAO as defining a custom interface for accessing your database.
+- Getting a Room database is a bit involved, so here's the general process before you start with the code:
+    - Create a public abstract class that extends RoomDatabase. This class is to act as a database holder. The class is abstract, because Room creates the implementation for you.
+    - Annotate the class with @Database. In the arguments, declare the entities for the database and set the version number.
+    - Inside a companion object, define an abstract method or property that returns a SleepDatabaseDao. Room will generate the body for you.
+    - You only need one instance of the Room database for the whole app, so make the RoomDatabase a singleton.
+    - Use Room's database builder to create the database only if the database doesn't exist. Otherwise, return the existing database.
+- [Understanding migrations with Room](https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929)
 - 
-
 
 - https://codelabs.developers.google.com/codelabs/kotlin-android-training-lifecycles-logging/index.html#0
