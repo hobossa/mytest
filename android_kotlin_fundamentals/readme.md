@@ -112,4 +112,4 @@ maven { url 'https://maven.aliyun.com/repository/jcenter/' }
 
 
 
-- https://codelabs.developers.google.com/codelabs/kotlin-android-training-lifecycles-logging/index.html#0
+- https://codelabs.developers.google.com/codelabs/kotlin-android-training-recyclerview-fundamentals/#4
