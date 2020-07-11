@@ -106,7 +106,8 @@ maven { url 'https://maven.aliyun.com/repository/jcenter/' }
     - You only need one instance of the Room database for the whole app, so make the RoomDatabase a singleton.
     - Use Room's database builder to create the database only if the database doesn't exist. Otherwise, return the existing database.
 - [Understanding migrations with Room](https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929)
-- o define which colors to use for enabled and disabled states, use a [ColorStateList](https://developer.android.com/guide/topics/resources/color-list-resource) for the text color and a [StateListDrawable](https://developer.android.com/guide/topics/resources/drawable-resource#StateList) for the background color.
+- to define which colors to use for enabled and disabled states, use a [ColorStateList](https://developer.android.com/guide/topics/resources/color-list-resource) for the text color and a [StateListDrawable](https://developer.android.com/guide/topics/resources/drawable-resource#StateList) for the background color.
+- use DiffUtil to optimize the RecyclerView for changes to the data.
 - binding.executePendingBindings(). This call is an optimization that asks data binding to execute any pending bindings right away. It's always a good idea to call executePendingBindings() when you use binding adapters in a RecyclerView, because it can slightly speed up sizing the views.
 - 
 
