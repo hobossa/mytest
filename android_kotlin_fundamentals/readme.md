@@ -109,6 +109,7 @@ maven { url 'https://maven.aliyun.com/repository/jcenter/' }
 - to define which colors to use for enabled and disabled states, use a [ColorStateList](https://developer.android.com/guide/topics/resources/color-list-resource) for the text color and a [StateListDrawable](https://developer.android.com/guide/topics/resources/drawable-resource#StateList) for the background color.
 - use DiffUtil to optimize the RecyclerView for changes to the data.
 - binding.executePendingBindings(). This call is an optimization that asks data binding to execute any pending bindings right away. It's always a good idea to call executePendingBindings() when you use binding adapters in a RecyclerView, because it can slightly speed up sizing the views.
+- A sealed class defines a closed type, which means that all subclasses of the sealed class must be defined in this file. As a result, the number of subclasses is known to the compiler. It's not possible for another part of your code to define a new type of DataItem that could break your adapter.
 - 
 
 
