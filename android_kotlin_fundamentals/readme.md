@@ -91,7 +91,7 @@ maven { url 'https://maven.aliyun.com/repository/jcenter/' }
     - Data in a LiveData object can be read, but not changed. From outside the ViewModel, data should be readable, but not editable, so the data should be exposed as LiveData.
 - Usually, LiveData delivers updates to the observers only when data changes. An exception to this behavior is that observers also receive updates when the observer changes from an inactive to an active state.
 - Data binding with ViewModel and LiveData
-    - Donot forget to specify th fragment view as the lifecycle owner of the bindings. This is used so that the binding can observe LiveData updates
+    - Donot forget to specify the fragment view as the lifecycle owner of the bindings. This is used so that the binding can observe LiveData updates
     ```
     binding.lifecycleOwner = viewLifecycleOwner
     ```
@@ -110,6 +110,8 @@ maven { url 'https://maven.aliyun.com/repository/jcenter/' }
 - use DiffUtil to optimize the RecyclerView for changes to the data.
 - binding.executePendingBindings(). This call is an optimization that asks data binding to execute any pending bindings right away. It's always a good idea to call executePendingBindings() when you use binding adapters in a RecyclerView, because it can slightly speed up sizing the views.
 - A sealed class defines a closed type, which means that all subclasses of the sealed class must be defined in this file. As a result, the number of subclasses is known to the compiler. It's not possible for another part of your code to define a new type of DataItem that could break your adapter.
+- The [Retrofit](https://square.github.io/retrofit/) library is a client library that enables your app to make requests to a REST web service.
+- The [Moshi](https://github.com/square/moshi) library is Android JSON parser that converts a JSON string into Kotlin objects. Retrofit has a converter that works with Moshi.
 - 
 
 
