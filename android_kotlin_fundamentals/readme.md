@@ -112,6 +112,7 @@ maven { url 'https://maven.aliyun.com/repository/jcenter/' }
 - A sealed class defines a closed type, which means that all subclasses of the sealed class must be defined in this file. As a result, the number of subclasses is known to the compiler. It's not possible for another part of your code to define a new type of DataItem that could break your adapter.
 - The [Retrofit](https://square.github.io/retrofit/) library is a client library that enables your app to make requests to a REST web service.
 - The [Moshi](https://github.com/square/moshi) library is Android JSON parser that converts a JSON string into Kotlin objects. Retrofit has a converter that works with Moshi.
+- you can use a community-developed library called [Glide]()https://github.com/bumptech/glide to download, buffer, decode, and cache your images. Glide leaves you with a lot less work than if you had to do all of this from scratch.
 - 
 
 
