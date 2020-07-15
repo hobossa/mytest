@@ -113,6 +113,7 @@ maven { url 'https://maven.aliyun.com/repository/jcenter/' }
 - The [Retrofit](https://square.github.io/retrofit/) library is a client library that enables your app to make requests to a REST web service.
 - The [Moshi](https://github.com/square/moshi) library is Android JSON parser that converts a JSON string into Kotlin objects. Retrofit has a converter that works with Moshi.
 - you can use a community-developed library called [Glide]()https://github.com/bumptech/glide to download, buffer, decode, and cache your images. Glide leaves you with a lot less work than if you had to do all of this from scratch.
+- Using a repository (pattern) class is a recommended best practice for code separation and architecture.
 - 
 
 
