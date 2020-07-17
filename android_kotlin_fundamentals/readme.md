@@ -114,7 +114,8 @@ maven { url 'https://maven.aliyun.com/repository/jcenter/' }
 - The [Moshi](https://github.com/square/moshi) library is Android JSON parser that converts a JSON string into Kotlin objects. Retrofit has a converter that works with Moshi.
 - you can use a community-developed library called [Glide]()https://github.com/bumptech/glide to download, buffer, decode, and cache your images. Glide leaves you with a lot less work than if you had to do all of this from scratch.
 - Using a repository (pattern) class is a recommended best practice for code separation and architecture.
-- 
+- While WorkManager runs background work, it takes care of compatibility issues and best practices for battery and system health. WorkManager offers compatibility back to API level 14. WorkManager chooses an appropriate way to schedule a background task, depending on the device API level. It might use JobScheduler (on API 23 and higher) or a combination of AlarmManager and BroadcastReceiver.
+- The Application:onCreate() method runs in the main thread. Performing a long-running operation in onCreate() might block the UI thread and cause a delay in loading the app. To avoid this problem, run tasks such as initializing Timber and scheduling WorkManager off the main thread, inside a coroutine.
 
 
 
