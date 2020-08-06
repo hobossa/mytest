@@ -1,0 +1,8 @@
+- https://codelabs.developers.google.com/codelabs/android-room-with-a-view-kotlin/
+- By default, to avoid poor UI performance, Room doesn't allow you to issue queries on the main thread. When Room queries return LiveData, the queries are automatically run asynchronously on a background thread.
+- Usually, you only need one instance of a Room database for the whole app.
+- Note: When you modify the database schema, you'll need to update the version number and define a migration strategy
+    - For a sample, a destroy and re-create strategy can be sufficient. But, for a real app, you must implement a migration strategy. See [Understanding migrations with Room](https://medium.com/google-developers/understanding-migrations-with-room-f01e04b07929).
+- Repositories are meant to mediate between different data sources. In this simple example, you only have one data source, so the Repository doesn't do much. See the [BasicSample](https://github.com/googlesamples/android-architecture-components/tree/master/BasicSample) for a more complex implementation.
+- To find out more about working with coroutines in the ViewModel, check out Step 5 of the [Using Kotlin Coroutines in your Android App](https://codelabs.developers.google.com/codelabs/kotlin-coroutines/index.html?index=..%2F..index#4) codelab or the [Easy Coroutines in Android: viewModelScope blogpost](https://medium.com/androiddevelopers/easy-coroutines-in-android-viewmodelscope-25bffb605471).
+-
