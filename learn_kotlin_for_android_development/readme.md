@@ -1,3 +1,15 @@
-- page 53
+- page 90
 ----
--
+- class visibility modifiers
+    - public: The instantiation can be done from anywhere inside and outside your program. This is the default.
+    - private: The instantiation can be done only from inside the very same class or object. This makes sense if you use secondary constructors.
+    - protected: The setting is the same as private, but the instantiation can be done from subclasses as well. Subclasses belong to inheritance, which is discussed in Chapter 3.
+    - internal: The instantiation can be done from anywhere inside the module. In Kotlin, a module is a set of files compiled together. You use this modifier if you don’t want other programs (from other projects) to  ccess a constructor, but you otherwise want the constructor to be freely accessible from other classes or objects inside your program.
+- object is something similar to singleton in C++
+- companion object is similar to static member in C++
+- A Structured Project
+    - The root for the activity class.
+    - A package random for the random numbers. We put the interface right into the package, and the two implementations into a subpackage impl.
+    - A gui package for the Console view element.
+    - A model package for the user data class. Developers often use the term model to refer to data structures and data relations.
+    - A common package for the Constants singleton object.
