@@ -13,3 +13,8 @@
     - A gui package for the Console view element.
     - A model package for the user data class. Developers often use the term model to refer to data structures and data relations.
     - A common package for the Constants singleton object.
+- check whether a lateinit var has been initialized or not by using ::name.isInitialized
+    ```
+    lateinit var name: Type
+    ::name.isInitialized
+    ```

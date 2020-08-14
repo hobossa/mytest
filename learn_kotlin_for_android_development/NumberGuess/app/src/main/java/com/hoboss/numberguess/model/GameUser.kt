@@ -8,5 +8,11 @@ class GameUser(
     val birthday: String = "",
     val userRank: Double = 0.0
 ) {
+    val fullName: String
+    val initials: String
 
+    init {
+        fullName = "$firstName $lastName"
+        initials = "${firstName.toUpperCase()} ${lastName.toUpperCase()}"
+    }
 }
