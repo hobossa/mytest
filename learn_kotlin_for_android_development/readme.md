@@ -1,4 +1,4 @@
-- page 125
+- page 157
 ----
 - class visibility modifiers
     - public: The instantiation can be done from anywhere inside and outside your program. This is the default.
@@ -52,3 +52,109 @@
 - Kotlin assumes a special void type that it calls Unit. If you omit: ReturnType and the function does not return a value, Unit is assumed. If, for whatever reason, you can write fun name(...) : Unit {...} to improve the readability.
 
 - Abstract classes are something between interfaces and normal classes: They provide implementations for some functions and leave other functions abstract (unimplemented) to allow for some variety.
+
+- Visibility
+    |Visibility|Asset|Description|
+    |:--|:--|:--|
+    | public | Function or property | (Defalut) The function or property is visible from everywhere inside and outside the structure unit.|
+    |private| Function or property | The function or property is visible only form inside the same structure unit. |
+    | protected | Function or property | The function or property is visible from inside the same structure unit, and from inside any direct subclass. Subclass get declared via class TheSubClass-Name : TheClassName { ... } and they inherit all the public and protected properties and functions of the class from which they inherit. |
+    | internal | Function or property | FUunctions and properties are public only for structure units from the same program. For programs form other compilations, especially for programs from others you include in your software, internal gets treated like private. |
+    | public | Class, singleton object, or companion object | (Default) The structure unit is visible from everywhere inside and outside the program. |
+    | private | Class, singleton object, or companion object | The structure unit is visible only form inside the same file. For inner classes the structure unit is only visible form an enclosing structure. For example <pre lang=kotlin>`    class A {`<br>`        private class B {`<br>`            ...`<br>`        }`<br>`        fun function() {`<br>`            val b = B()`<br>`        }`<br>`    }`</pre> |
+    | protected | Class, singleton object, or companion object | The structure unit is visible only form an enclosing structure unit or a subclass of it. For example <pre lang=kotlin>`    class A {`<br>`        protected class B {`<br>`            ...`<br>`        }`<br>`        fun function() {`<br>`            val b = B()`<br>`        }`<br>`    }`<br>`    class AA : A {`<br>`    // subclass of A`<br>`        fun function() {`<br>`            val b = B()`<br>`        }`<br>`     } `</pre> |
+    ||||
+
+- In Kotlin, any class automatically and implicitly inherits from the built-in class Any.
+
+- this and this@ClassName. an extension of this that allows us to get the instance of the enclosing class.
+    ```
+    interface X {
+        fun doSomething()
+    }
+
+    class A {
+        fun meth() {
+            val x = object : x {
+                override doSomething() {
+                    println(this)       // this refers to the anonymous class.
+                    println(this@A)     // this@A refers to the instance of class A.
+                }
+            }
+        }
+    }
+    ```
+
+- we cannot really extension properties, but extension property accessors, because extension properties are not allowed to actually create real data fields. For example:
+    ```
+    val String.l get() = this.length
+    ```
+
+- Using Tail Recursion to prevent callstack overflow. convert a normal function to a tail recursion function
+    ```
+    // normal function
+    fun factorial(n: Int) {
+        return if(n--1) n else n * factorial(n-1)
+    }
+    // tail recursion function
+    tailrec fun factorial(n: Int) {
+        return if(n--1) n else n * factorial(n-1)
+    }
+    ```
+
+- Infix Operators : operand1 OPERATOR operand2
+    ```
+    infix operator
+    fun SomeClass1.oper(param:SomeClass2): ResultType = {
+        ...
+        return [result_expression]
+    }
+    [expression1] oper [expression2]
+
+    ```
+
+- operator overloading
+    - find the right textual representation of the operator. eg. minus for -
+    - overide it
+    ```
+    data class Point(val x:Double, val y:Double) {
+        operator fun minus(p2:Point) = Vector(p2.x-thixs.x, p2.y-this.y)
+    }
+    ```
+
+- Delegation is similar to inheritance; it starts the same way: class TheClass : SomeInterface... . The difference is where the implementing code resides: For delegation it is presumed that an object is at hand that already implements the interface and The Class primarily delegates the work to this object.
+    ```
+    interface TheInterface {
+        fun someMehtod(i:Int): Int
+    }
+    class Implementor0 : SomeInterface {
+        override fun someMethod(i:Int) : Int = i*2
+    }
+
+    class Implementor: TheInterface {
+        val delegate = Implementor0()
+        override fun someMethod(i:Int): Int = delegate(i)   // delegate the work
+        // it counld also add some extra work, as in
+        // override fun someMethod(i:Int):Int = delegate(i-1) + 1
+    }
+
+    // Kotlin has a concise notation for the delegation basic pattern
+    class Implementor : TheInterface by Implementor0()
+    // or
+    val impl0 = Implementor0()
+    class Implementor : TheInterface by impl0
+
+    // you still can change any function by overriding it.
+    class Implementor : TheInterface by Implentor0() {
+        override fun domeMethod(i:Int):Int = i * 42
+    }
+
+    // or If you explicitly need the delegate object, you must add it to the constructor as in
+    class Implementor(val delegate:TheInterface) : TheInterface by impl0 {
+        override fun someMethod(i:Int):Int = delegate.someMethod(i-1) + 1
+    }
+    val b = Implementor0()
+    val instance = Implementor(b)
+    ```
+
+-

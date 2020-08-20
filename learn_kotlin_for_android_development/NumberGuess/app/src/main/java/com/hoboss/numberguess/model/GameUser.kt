@@ -1,6 +1,6 @@
 package com.hoboss.numberguess.model
 
-class GameUser(
+data class GameUser(
     val firstName: String,
     val lastName: String,
     val userName: String,
@@ -8,11 +8,12 @@ class GameUser(
     val birthday: String = "",
     val userRank: Double = 0.0
 ) {
-    val fullName: String
-    val initials: String
+    enum class Gender { F, M, X }
 
-    init {
-        fullName = "$firstName $lastName"
-        initials = "${firstName.toUpperCase()} ${lastName.toUpperCase()}"
-    }
+    val fullName: String
+        get() = "$firstName $lastName"
+
+    val initials: String
+        get() = "${firstName.toUpperCase()} ${lastName.toUpperCase()}"
+
 }
