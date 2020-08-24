@@ -1,4 +1,4 @@
-- page 157
+- page 199
 ----
 - class visibility modifiers
     - public: The instantiation can be done from anywhere inside and outside your program. This is the default.
@@ -157,4 +157,39 @@
     val instance = Implementor(b)
     ```
 
--
+- Functions with other functions as parameters are called higher order functioins.
+
+- Scoping Functions: appply, let, alse, run, and with (LET us ALSO RUN WITH APPLY.)
+    - apply
+        ```Kotlin
+        // apply automatically returns the object instance.
+        // object.apply {
+        //     ...
+        // }
+        class A {
+            fun goA() {...}
+            ...
+            val x = SomeClass().apply {
+                this.x = ...    // -> SomeClass.x
+                x = ...         // -> SomeClass.x
+                this@A.goA()    // -> A.goA()
+            }
+        }
+        ```
+    - let, the let scoping funtion frequently gets used to transform an object into a different object.
+        ```Kotlin
+        // the last line must contain the expression that let{} is supposed to return.
+        object.let { o ->
+            [statements]    // do s.th. with 'o'
+            [value]
+        }
+        // // You can also omit the o ->, do s.th with 'it'
+        object.let {
+            [statements]    // do s.th. with 'it'
+            [value]
+        }
+
+        val s = "Hello World"
+        val s2 = s.let{it +"\n"}    // s.let {string -> string + "\n}
+        ```
+    - with
