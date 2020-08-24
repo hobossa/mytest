@@ -1,4 +1,4 @@
-- page 199
+- page 202
 ----
 - class visibility modifiers
     - public: The instantiation can be done from anywhere inside and outside your program. This is the default.
@@ -192,4 +192,55 @@
         val s = "Hello World"
         val s2 = s.let{it +"\n"}    // s.let {string -> string + "\n}
         ```
-    - with
+    - with， The with scoping function is the brother of apply{...}. The difference is it just gets the object or value to convert to a receiver as a parameter:
+        ```Kotlin
+        // The with function is frequently used to avoid repeatedly writing the object ot act on.
+        val o = ... // some value
+        with(o) {
+            // o is now "this"
+            ...
+        }
+
+        with(object) {
+            f1(37)
+            f1(12)
+            fx("hello")
+        }
+        // instead of
+        object.f1(37)
+        object.f1(12)
+        object.fx("hello")
+        ```
+    - also, The also scoping function is realted to the apply{...}, but does not redefine this. Instead it provides the object or value in front of also as a parameter to the lambda function parameter:
+        ```Kotlin
+        object.also { obj ->
+            // 'obj' is object
+            ...
+        }
+        object.also {
+            // 'it' is object
+            ...
+        }
+        ```
+    - run, The run scoping function is similar to the apply{...} function. However, it does not return the receiver object, but instead return the value of the last statement:
+        ```Kotlin
+        val s = "hello"
+        val x = s.run {
+            // 'this' is s
+            ...
+            [value]
+        }
+        // You can see run{...} as a general-purpose "do something with an object" brackete. One prominent use case, though, consists of acting on an object only if it is not null. 
+        var v: String? = ...
+        v?.run {
+            ...
+        }
+        ```
+
+- The takeIf() function returns the receiver(someInstance) if the boolean expression evaluates to ture; optherwise it returns null. Here inside the boolean expression you can use it to refer to someInstance.
+    ```Kotlin
+    someInstance.takeIf{ [boolean_expression] }?.run {
+        ...
+    }
+    ```
+- 
