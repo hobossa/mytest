@@ -1,4 +1,4 @@
-- page 202
+- page 209
 ----
 - class visibility modifiers
     - public: The instantiation can be done from anywhere inside and outside your program. This is the default.
@@ -18,7 +18,7 @@
     - A common package for the Constants singleton object.
 
 - check whether a lateinit var has been initialized or not by using ::name.isInitialized
-    ```
+    ```Kotlin
     lateinit var name: Type
     ::name.isInitialized
     ```
@@ -26,7 +26,7 @@
 - In Kotlin, function arguments cannot be reassigned inside the function body. This is not a disadvantage, as reassigning function parameters inside the function is considered bad practice anyway.
 
 - Functions modifiers : The optional [modifiers] you can prepend to the function declaration for finetuning a function's behavior are as follows：
-    ```
+    ```Kotlin
     // Fuctions not returning values
     [modifiers]
     fun functionName([parameters]){
@@ -68,7 +68,7 @@
 - In Kotlin, any class automatically and implicitly inherits from the built-in class Any.
 
 - this and this@ClassName. an extension of this that allows us to get the instance of the enclosing class.
-    ```
+    ```Kotlin
     interface X {
         fun doSomething()
     }
@@ -86,12 +86,12 @@
     ```
 
 - we cannot really extension properties, but extension property accessors, because extension properties are not allowed to actually create real data fields. For example:
-    ```
+    ```Kotlin
     val String.l get() = this.length
     ```
 
 - Using Tail Recursion to prevent callstack overflow. convert a normal function to a tail recursion function
-    ```
+    ```Kotlin
     // normal function
     fun factorial(n: Int) {
         return if(n--1) n else n * factorial(n-1)
@@ -103,7 +103,7 @@
     ```
 
 - Infix Operators : operand1 OPERATOR operand2
-    ```
+    ```Kotlin
     infix operator
     fun SomeClass1.oper(param:SomeClass2): ResultType = {
         ...
@@ -116,14 +116,14 @@
 - operator overloading
     - find the right textual representation of the operator. eg. minus for -
     - overide it
-    ```
+    ```Kotlin
     data class Point(val x:Double, val y:Double) {
         operator fun minus(p2:Point) = Vector(p2.x-thixs.x, p2.y-this.y)
     }
     ```
 
 - Delegation is similar to inheritance; it starts the same way: class TheClass : SomeInterface... . The difference is where the implementing code resides: For delegation it is presumed that an object is at hand that already implements the interface and The Class primarily delegates the work to this object.
-    ```
+    ```Kotlin
     interface TheInterface {
         fun someMehtod(i:Int): Int
     }
@@ -230,7 +230,7 @@
             ...
             [value]
         }
-        // You can see run{...} as a general-purpose "do something with an object" brackete. One prominent use case, though, consists of acting on an object only if it is not null. 
+        // You can see run{...} as a general-purpose "do something with an object" brackete. One prominent use case, though, consists of acting on an object only if it is not null.
         var v: String? = ...
         v?.run {
             ...
@@ -243,4 +243,16 @@
         ...
     }
     ```
-- 
+
+- Exceptions in Expressions. (Be careful not to abuse try-catch blocks, only use it for unanticipated problems)
+    - one interesting feature of Kotlin is that you can use try-catch blocks and throw satements in expressions. The outcome of try-catch block is the value of the last line inside the try{} or the catch{} block.
+        ```Kotlin
+        val x = try{ arr[ind] }
+            catch(e: ArrayIndexOutofBoundsException) { -1 }
+        ```
+    - A throw someException has a value, too. It is of type Nothing and in the Kotlin type hierarchy is a subclass of everything.
+        ```Kotlin
+        val v = map[someKey] ?: throw Exception("no such key in the map")
+        ```
+
+-
