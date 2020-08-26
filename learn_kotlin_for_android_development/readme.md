@@ -1,4 +1,4 @@
-- page 241 Zipping
+- page 255 Zipping
 ----
 - class visibility modifiers
     - public: The instantiation can be done from anywhere inside and outside your program. This is the default.
@@ -306,3 +306,40 @@
         }
         println(s)  // 2432902008176640000
         ```
+    - Zipping, which is a set of functions to combine two arrays or collections element-wise.
+        - zip(other: Array<out R>): List<Pair<T, R>>
+        - zip(other: Iterable<R>): List<Pair<T, R>>
+        ```Kotlin
+        // Both of them are defined as infix functions, so you can write
+        array.zip(otherArray)
+        // or
+        array zip otherArray
+
+        array.zip(list)
+        array zip list
+
+        collection.zip(array)
+        collection zip array
+        
+        collection.zip(otherCollection)
+        collection zip otherCollection
+
+        // If you try to zip arrays or collections of unequal lengths, the bigger one gets clipped at then end and the resulting list will have the size of the smaller one.
+        ```
+        - unzip(): Piar<List<T>, List<R>>
+        - For zipping there is an alternative function to having a second parameter adder. This is a transform function doing something with the paired elements before outputting them to the zip result.
+
+- The Spread Operator, For any function with a vararg parameter, you can use an array to pass values to the function
+    ```Kotlin
+    function xyz(a: Int, vararg x: String) {
+        ...
+    }
+    val arr = arrayOf("1", "2", "3")
+    xyz(42, *arr)
+    // The * in front of the parameter is called a spread operator.
+    // Note that this works only for arrays. but you can conversion a list or set via .toArray(), toIntArray() ...
+    ```
+
+- ArrayDeque
+
+- 

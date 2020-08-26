@@ -1,12 +1,16 @@
 package com.hoboss.numberguess
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import com.hoboss.numberguess.common.Constants
 import com.hoboss.numberguess.model.GameUser
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import com.hoboss.numberguess.random.RandomNumberGenerator
 import com.hoboss.numberguess.random.impl.StdRandom
 
@@ -28,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
         fetchSavedInstanceData(savedInstanceState)
         doGuess.isEnabled = started
     }
@@ -35,6 +40,12 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         putInstanceData(outState)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu_options, menu)
+        return true
     }
 
     fun start(v: View) {
@@ -94,6 +105,12 @@ class MainActivity : AppCompatActivity() {
                 status.text = getString("statusMsg")
                 console.text = getStringArrayList("logs")!!.joinToString("\n")
             }
+    }
+
+    private fun openStatistics() {
+        val intent: Intent = Intent(this,
+            StatisticsActivity::class.java)
+        startActivity(intent)
     }
 
     private fun log(msg: String) {

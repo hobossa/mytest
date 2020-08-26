@@ -23,4 +23,6 @@
     <string name="status.hit">
       You got it after %1$d tries!
       Press START for a new game.</string>
+    <string name="statistics.menu_title">
+      Statistics</string>
 </resources>
