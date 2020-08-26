@@ -1,4 +1,4 @@
-- page 221 Lists
+- page 241 Zipping
 ----
 - class visibility modifiers
     - public: The instantiation can be done from anywhere inside and outside your program. This is the default.
@@ -255,4 +255,54 @@
         val v = map[someKey] ?: throw Exception("no such key in the map")
         ```
 
--
+- in place and in a functional style.
+    - Sorting can happen in place, which means the array or collection you want to have sorted gets altered, or in a functional style, which means the result of the operation is ther sorted array or collection and the original data container stays untouched. Sorting in place will be the faster choice, but bears the risk that other program parts get corrupted if they hold a reference to the original array or collection. Functional sorting can improve program stability, but you can expect some performance penalty, so choose wisely.
+
+- Grouping, Folding, Reducing, and Zipping. These are advanced operations on arryas and collections like list and sets.
+    - Grouping, which is about reorganizing your data in such a way that groups of data are gathered according to some key deduced from the data or imposed on the data.
+        ```Kotlin
+        // groupBy(keysSelector : (T) -> K)： Map<K, List<T>>
+        data class Car(val id:Int, val make:Int, val name:String, val vin:String)
+        val cars = listOf(
+            Car(1, 1994, "Sirus",       "WXX 130 007-1J-582943"),
+            Car(2, 1997, "Sirus",       "WXX 130 008-1J-582957"),
+            Car(3, 2010, "Casto 4.0",   "WXQ 456 088-4K-005614"),
+            Car(4, 2010, "Babo MX",     "WYY 518 004-55-171598"),
+            Car(5, 1994, "Casto 4.0",   "WXQ 456 005-4K-005658"),
+            Car(6, 2011, "Quasto",      "WA0 100 036-00-012378")
+        )
+        // val groupedByMake = cars.groupBy { car -> car.make }
+        val groupedByMake = cars.groupBy(Car::make)
+        val group2010:List<Car>? = groupedByMake[2010]
+        println(group2010) // [Car(id=3, make=2010, name=Casto 4.0, vin=WXQ 456 088-4K-005614), Car(id=4, make=2010, name=Babo MX, vin=WYY 518 004-55-171598)]
+        ```
+    - Folding, which is about letting an object scan through all elements of an array or collection(set or list) and update itself each iteration. Think, for example, of a list of invoices and summing up all money amounts. This is nothing spectacular; on could write
+        ```Kotlin
+        val someObject = ...
+        list.forEach { e ->
+            // update someObj using elem
+            ...
+        }
+        ```
+        However, there is an intrinsic danger that code could initialize the object before the loop starts doing lots of weird things, so there is a function that performs the task using one statement. Actually, it is a set of functions.
+        - fold(initial: R, operation: (acc: R, T) -> R): R . The function takes as parameters the object that is going to be updated each loop iteration and a function that performs the updating. This updater takers as parameters the actual version of the gathering object and the current loop element. This returns the gathering object with all data container elements applied. In most practical cases the first parameter is probably a newly constructed objects. as in list.fold(Gatherer(), ...).
+        - foldRight(initial: R, operation: (T, acc: R) -> R): R. This is similar to fold(), but it iterates through the array or collection in reverse order. To express this backward scanning, the parameter order of the inner function gets reversed, too.
+        - foldIndexed(initial: R, operation: (index: Int, acc:R, T) -> R): R.
+        - foldRightIndexed(initial: R, operation: (index: Int, T, acc: R) -> R): R
+            ```Kotlin
+            val con = listOf(1, 2, 3, 4)
+            val s = con.fold(0, {acc, e -> acc + e})
+            println(s)  // 10
+            ```
+    - Reducing, which is the little brother of folding. The gatherer is not specified explicitly and instead the first element of the array or collection(a set or a list) is used. The folding operation or more precisely reduction operation then understandably starts with the second element of the data. Reduction functions are listed here.
+        - reduce(operation: (acc: R, T) -> R): R
+        - reduceRight(operation: (T, acc: R) -> R): R
+        - reduceIndexed(operation: (index: Int, acc: R, T) -> R): R
+        - reduceRightIndexed(operation: (index: Int, T, acc: R) -> R): R
+        ```Kotlin
+        val l : List<Long> = LongRange(1, 20).toList()
+        val s = l.reduce{acc, i ->
+            acc*i
+        }
+        println(s)  // 2432902008176640000
+        ```
