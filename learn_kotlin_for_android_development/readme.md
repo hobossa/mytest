@@ -289,11 +289,11 @@
         - foldRight(initial: R, operation: (T, acc: R) -> R): R. This is similar to fold(), but it iterates through the array or collection in reverse order. To express this backward scanning, the parameter order of the inner function gets reversed, too.
         - foldIndexed(initial: R, operation: (index: Int, acc:R, T) -> R): R.
         - foldRightIndexed(initial: R, operation: (index: Int, T, acc: R) -> R): R
-            ```Kotlin
-            val con = listOf(1, 2, 3, 4)
-            val s = con.fold(0, {acc, e -> acc + e})
-            println(s)  // 10
-            ```
+        ```Kotlin
+        val con = listOf(1, 2, 3, 4)
+        val s = con.fold(0, {acc, e -> acc + e})
+        println(s)  // 10
+        ```
     - Reducing, which is the little brother of folding. The gatherer is not specified explicitly and instead the first element of the array or collection(a set or a list) is used. The folding operation or more precisely reduction operation then understandably starts with the second element of the data. Reduction functions are listed here.
         - reduce(operation: (acc: R, T) -> R): R
         - reduceRight(operation: (T, acc: R) -> R): R
