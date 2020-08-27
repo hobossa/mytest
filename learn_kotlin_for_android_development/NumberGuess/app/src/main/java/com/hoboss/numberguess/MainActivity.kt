@@ -3,6 +3,7 @@ package com.hoboss.numberguess
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
@@ -13,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import com.hoboss.numberguess.random.RandomNumberGenerator
 import com.hoboss.numberguess.random.impl.StdRandom
+import com.hoboss.numberguess.statistics.Statistics
 
 class MainActivity : AppCompatActivity() {
     var started = false
@@ -70,6 +72,7 @@ class MainActivity : AppCompatActivity() {
             status.setText(R.string.status_too_high)
             num.setText("")
         } else {
+            Statistics.register(number, tries)
             status.text = getString(
                 R.string.status_hit,
                 tries
@@ -117,4 +120,6 @@ class MainActivity : AppCompatActivity() {
         Log.d("LOG", msg)
         console.log(msg)
     }
+
+
 }
