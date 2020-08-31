@@ -1,4 +1,4 @@
-- page 290
+- page 293
 ----
 - class visibility modifiers
     - public: The instantiation can be done from anywhere inside and outside your program. This is the default.
