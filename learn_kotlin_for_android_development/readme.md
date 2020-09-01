@@ -342,4 +342,4 @@
 
 - ArrayDeque
 
--
+- Lambda functions can have a result. The result of a lambda function is whatever the last line evaluated to.
