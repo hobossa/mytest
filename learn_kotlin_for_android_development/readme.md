@@ -1,4 +1,4 @@
-- page 293
+- page 303
 ----
 - class visibility modifiers
     - public: The instantiation can be done from anywhere inside and outside your program. This is the default.
@@ -343,3 +343,97 @@
 - ArrayDeque
 
 - Lambda functions can have a result. The result of a lambda function is whatever the last line evaluated to.
+
+- Declaration-Side Variance: in and out variance annotation.
+    ```Kotlin
+    // out variance annotation
+    class A<out T> {
+        fun extract() : T = ...
+    }
+    var a = A<String>()
+    var b = A<Any>()
+    b = a // variance? YES!
+    val extracted: String = b.extract() // OK, because we are reading!
+
+    // in variance annotation
+    class A<in T> {
+        fun add(p: T) {...}
+    }
+    var a = A<String>()
+    var b = A<Any>()
+    a = b // variance? YES
+    a.add("World") // OK, because we are writing!
+    ```
+    - So with the in or out variance annotation added to the type parameters, and confining class operations to allow for either only an input of the generic type or only an output of the generic type, variance is possible in Kotlin! If you need both, you can use a different construct, as covered in the section "Type Projections" later.
+
+    - Note: The out variance for classes also gets called covariance, and the in variance is called contravariance. The name declaration-side variance stems from declaring the in or out variance in the declaration of the class. Other languages, such as Java, use a different type of variance that takes effect while using the clas and hence gets called use-side variance.
+
+    - Because immutable collections cannot be written to, Kotlin automatically makes them covariant. If you prefer, you can think of Kotlin implicitly adding the out variance annotation to immutable collections.
+
+- Type Projections: in projection, out projection, and star projections
+    - In the previous section we saw that for the out style variance the corresponding class is not allowed to have functions with the generic type as a function parameter, and that for the in style variance we accordingly cannot have a function returning the generic type. This is, of course, unsatisfactory if we need both kinds of functions in a class. Kotlin also has an answer for this type of requirement. It is called type projection and because it aims at variance while using different functions of a class, it is the Kotling equivalent of use-side variance.
+    - The idea goes as follows: We still use the in and out variance annotations, but instead of declaring them for the whole class we add them ot function parameters. We slightly rewrite the example from the previous section and add in and out variance annotations:
+        ```Kotlin
+        class Producer<T> {
+            fun getData(): Iterable<T>? = null
+        }
+
+        class Consumer<T> {
+            fun setData(p: Iterable<T>) {}
+        }
+
+        class A<T> {
+            // The out in the add() function says that we need an object that produces T objects.
+            fun add(p: Producer<out T>) {}
+            // The in in the extractTo function designates an object that consumes T objects.
+            fun extractTo(p: Consumer<in T>) {}
+        }
+
+        var a = A<String>()
+        var b = A<Any>()
+
+        var inputStrings = Producer<String>()
+        var inputAny = Producer<Any>()
+        a.add(inputStrings)
+        a.add(inputAny)         // FAILS!
+        b.add(inputStrings)     // only because of "out"
+        b.add(inputAny)
+
+        var outputStrings = Consumer<String>()
+        var outputAny = Consumer<Any>()
+        a.extractTo(outputStrings)
+        a.extractTo(outputAny)  // only because of "in"
+        b.extractTo(outputStrings)  // FAILS!
+        b.extractTo(outputAny)
+        ```
+    - Star Projections
+        - If you have a class or an interface with in or out variance annotations, you can use the special wildcard*, which means the following:
+            - For the out variance annotation, * means out Any?.
+            - For the in variance annotation, * menas in Nothing.
+        - Remember that Any is the superclass of any class, and Nothing is the subclass of any class.
+            ```Kotlin
+            interface Interf<in A, out B> {
+                ...
+            }
+
+            val x: Interf<*, Int> = ...     // same as Interf<in Nothing, Int>
+            val y: Interf<Int, *> - ...     // same as Interf<INt, out Any?>
+            ```
+        - You use the star wildcard in cases where you know nothing about the type, but still want to satisfy variance semantics prescribed by class or interface declarations.
+
+- Generic Constraints: restrict the type to a certain class or interface or one of its subtypes.
+    ```Kotlin
+    // confines T to a SpecificType or any of its subclasses
+    <T : SpecificType>
+    // SpecificType might have generic parameters themselves
+    <T : SpcificType<T>>
+
+    // Type bounds can be multiply declared.
+    class TheClass<T> where T: UpperBound1, T : upperBound2, ... {
+
+    }
+
+    fun <T> functionName(...) where T : UpperBound1, T : UpperBound2, ... {
+
+    }
+    ```
