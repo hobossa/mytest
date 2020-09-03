@@ -438,4 +438,134 @@
     }
     ```
 
--
+- reduce: A reduction takes the first element of a collection or an iterable, stores it in a variable, and then repeatedly applies an operation with all the other elements from the colleciton or iterable. If, for example, the operation is addition, in the end you get the sum of the collection:
+    ```Kotlin
+    // reduce, reduceINdexed, reduceRight, reduceRightIndexed
+
+    val l = listOf(1, 2, 3, 4)
+    val r = l.reduce{acc, e -> acc+e}
+    println(r)  // 10
+    ```
+    - <S, E : S> iter<E>.reduce( operation: (acc : S, E) -> S). Note that although the iteration goes over elements of type E, the operation function is allowed to also evaluate to a supertype of E. This is what the E : S in the type specification stands for. In this case the accumulator and the overall result will have the same type as this supertype.
+
+- fold: A folding is the big borther of reduction. whereas the reduction starts with the first element of the collection or iterable, and then uses the rest of the elements to update it, the folding works with a dedicated folding accumulator object that receives step by step all the iterated-over elements and therefore can update its state. Because the accumulator object can have any suitable type, folding is more powerful than reduction.
+    ```Kotlin
+    // fold, foldIndexed, foldRight, foldRightIndexed
+
+    val l = listOf(1, 2, 3, 4)
+    val r = l.fold(0){acc, e -> acc +e}
+    println(r)  // 10
+
+    data class Parcel(val receiverId:Int, val weight:Double)
+    val ll = listOf( Parcel(1267395, 1.45),
+        Parcel(1515670, 0.46),
+        Parcel(8345674, 2.50),
+        Parcel(3418566, 1.47),
+        Parcel(3491245, 3.04)
+    )
+    val ss = ll.fold(0.0){acc, e ->
+        acc + e.weight
+    }
+    println(ss)  // 8.92
+    ```
+
+- Joining: a way to create a string representation of a collection or an iterable, joining the string representations of all elements. (Yes, you can also do it via fold())
+    ```Kotlin
+    fun <E> Iterable<E>.joinToString(
+        separator: CharSequence = ", ",
+        prefix: CharSequence = "",
+        postfix: CharSequence = "",
+        limit: Int = -1,
+        truncated: CharSequence = "...",
+        transform: (E) -> CharSequence = null
+    ): String
+    ```
+
+- Grouping is about splitting a list into sublists based on some criterion. groupBY, groupingBy
+
+- Zipping, bring two related lists together.
+    ```Kotlin
+    <E, R> Iterable<E>.zip(
+        other: Iterable<R>
+    ): List<Pair<E, R>>
+
+    <E, R> Iterable<Pair<E, R>>.unzip():
+        Pair<List<E>, List<R>>
+    ```
+
+- Windowing. For user interface programming you frequently need to split a list into chunks of a given size. Say, for example, the user interface shows chunks of size 10 and provides page forward and page backward buttons to show the next or the previous chunk of a longer list. For this aim the standard library provides awindowsing function.
+    ```Kotlin
+    // creates a windowed view of an iterable or a collection. Each chunk has
+    // size and step indicates the index offset for each chunk (usually you set step=size). You must set partialWindows to true if you want to allow smaller chunks at the end.
+    <E> iterable.windowed(
+        size: Int, step: Int
+        = 1, partialWindows:
+        Boolean = false ) : List<List<E>>
+
+    // provides a transform function to act on each chunk.
+    <E, R> iterable.
+        windowed( size:
+        Int, step: Int = 1,
+        partialWindows: Boolean
+        = false, transform:
+        (List<E>) -> R) : List<R>
+    ```
+
+- Sequences are lazily evaluated collections. By that we mean that other than for collections from the kotlin.collections package, no large amounts of data are held in memory. So, if you create a collection of size 1,000,000 there will be 1,000,000 items in the form of object references or primitives allocated in memory. A sequence of size 1,000,000, however, just indicates we have something that can be iterated over 1,000,000 times, without all the values associated with it. Sequence interfaces, classes, and functions have their own package: kotlin.sequences.
+    ```Kotlin
+    sequenceOf(1,2,7,9)
+    iter.asSequence()
+
+    // create genuine sequences that do not depend on existing collections or arrays.
+    fun <T : Any> generateSequence(
+        nextFunction: () -> T?
+    ): Sequence<T>
+    var iterVar = 0
+    val seq = generateSequence {
+        itervar++
+    }
+
+    fun <T : Any> generateSequence(
+        seed: T?,
+        nextFunction: (T) -> T?
+        ): Sequence<T>
+    // or
+    fun <T : Any> generateSequence(
+        seedFunction: () -> T?,
+        nextFunction: (T) -> T?
+        ): Sequence<T>
+    val seq = generateSequence(
+        seed = 0,
+        nextFunction = { curr -> curr + 1 }
+    )
+    // example usage:
+    seq.take(10).forEach { i ->
+        // i will have values 0, 1, 2, ..., 9
+        ...
+    }
+
+    val seqFib = generateSequence(
+        seed = Pair(1,1),
+        nextFunction = { curr ->
+            Pair(curr.second, curr.first + curr.second)
+        }
+    )
+    // example usage
+    seqFib.take(10).map { it.second }.forEach {
+        Log.e("LOG", "fib: " + it)
+    }
+
+    fun <T> sequence(
+        block: suspend SequenceScope<T>.() -> Unit
+    ): Sequence<T>
+    val sequence = sequence {
+        yieldAll(1..10 step 2)
+    }
+    // Usage example:
+    sequence.take(8).forEach {
+        Log.e("Log", it.toString())
+    }
+    // -> 1, 3, 5, 7, 9
+    ```
+
+- The Math API
