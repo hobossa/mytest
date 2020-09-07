@@ -568,4 +568,108 @@
     // -> 1, 3, 5, 7, 9
     ```
 
-- The Math API
+- Basic Multithreading the Java Way
+    - The most important multithreading-related clas in Java is java.util.Thread. You can create one using its constructor, but Kotlin has a function that simplifies thread creation: thread(). Its synopsis reads like this:
+        ```Kotlin
+        fun thread(
+            start: Boolean = true,
+            isDaemon: Boolean = false,
+            contextClassLoader: ClassLoader? = null,
+            name: String? = null,
+            priority: Int = -1,
+            blcok: () -> Unit
+        )
+
+        // You use it as follows, for example:
+        var thr: Thread = thread(start = true) {
+            ... do something ...
+        }
+        var thr2: Thread = thread(start = false) {
+            ...
+        }
+        thr2.start()
+
+        // The most basic thread example for an Android app might read (remember that a function as a last invocation parameter can go outside parentheses):
+        // inside an activity:
+        override fun onCreate(savedInstanceState: Bundle?) {
+            ...
+            thread {
+                while(true) {
+                    Thread.sleep(1000L)
+                    Log.e("LOG", Date().toString())
+                }
+            }
+        }
+
+        // avoid multiple threads working on a shared list at the same time by wrapping the relevant code inside synchronized() {} blocks as follows:
+        val l = mutableListOf(1, 2, 3)
+        var i = 0
+        thread {
+            while(true) {
+                Thread.sleep(10L)
+                i++
+                synchronized(l) {
+                    if (i % 2 == 0) {
+                        l.add(i)
+                    } else {
+                        l.remove(l.first())
+                    }
+                }
+            }
+        }
+
+        thread {
+            while(true) {
+                Thread.sleep(1000L)
+                synchronized(l) {
+                    log.e("LOG", l.joinToString())
+                }
+            }
+        }
+        // It is also possible to add more parameters to the synchronized instruction.
+        synchronized(l1, l2) {
+            ...
+        }
+        ```
+
+- Advanced Multithreading the Java Way
+    - Scattering synchronized blocks and join functions throught your code poses a couple of problems:
+        1. It makes your code hard to understand; understanding multithreaded state handling is anything but easy for nonrtivial programs.
+        2. Having several threads and synchronized blocks might end up in a deadlock: Some thread A watis for thread B while thread B is waiting for thread A.
+        3. Writing too many join functions for gathering the threads' calculation results might result in too many threads just waiting, thwarting the advantages of multithreading.
+        4. Using synchronized blocks for any collection handling might also end up in too many threads just waiting.
+    - Special Concurrency Collections
+        - CopyOnWriteArrayList: Copying the complete list is costly, so this implementation usually helps only where reading operations vastly outnumber writing operations.
+        - CopyOnWriteArraySet:
+        - ConcurrentLinkedDeque: A thread-safe Deque where iteration operations are weakly consistent, meaning read elements reflect the deque's state at some point at or since the creation of the iterator. No ConcurrentModificationException will be thrown.
+        - ConcurrentLinkedQueue:
+        - ConcurrentSkipListSet: A thread-safe Set where iteration operations are weakly consistent, meaning read elements reflect the deque's state at some point at or since the creation of the iterator. No ConcurrentModificationException will be thrown. Other than the type specification the API documentation suggests, the elements must implement the Comparable interface.
+        - ConsurrentSkipListMap:
+    - Locks
+        - Lock(): similar to synchronized block, but in a more object-oriented way
+        - ReentrantLock()
+        - ReadWriteLock()
+    - Atomic Variable Types
+        ```Kotlin
+        class Counter {
+            var c:AtomicInteger = AtomicInteger(0)
+            fun increment() { c.incrementAndGet() }
+            fun decrement() { c.decrementAndGet() }
+        }
+        ```
+    - Executors, Futures, and Callables
+        - The main interfaces and classes
+            - Callable: This is something that can be invoked, possibly by another thread, and returns a result.
+            - Runnable: This one is not in package java.util.concurrent, but in package java.lang. It is something that can be invoked, possibly by another thread. No result is returned.
+            - Executors: This is an important utility class for, among other things, obtaining ExecutorService and ScheduledExecutorService implementations.
+            - ExecutorService: This is an interface for objects that allows invoking Runnables or Callables and gathering their results.
+            - ScheduledExecutorService: This is an interface for objects that allows invoking Runnables or Callbales and gathering their results. The invocation happens after some delay, or in a repeated manner.
+            - Future: THis is an object you can use to fetch the result from a Callable. (CompletableFuture)
+            - ScheduledFuture: This is an object you can use to fetch the result from a Callbale submitted to a ScheduledExecutorService.
+        - The primary usage pattern
+            1. Using Executors to get an ExecutorService or ScheduledExecutorSerivce. Save it in a property such as srvc or schedSrvc.
+            2. Using ExecutorService.invoke*, ExecutorService.submit*, ScheduledExecutorService.shcedule* to start tasks.
+            3. Wait for termination, as signaled by suitable functions from ExecutorService or ScheduledExecutorService, or by the Futures or ScheduledFutures you might have received in the previous step.
+
+- Kotlin Coroutines
+    -

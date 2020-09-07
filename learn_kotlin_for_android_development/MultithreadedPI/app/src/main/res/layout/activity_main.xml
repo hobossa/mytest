@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/label_procs"
+        android:layout_width="@dimen/label_width"
+        android:layout_height="@dimen/label_height"
+        android:text="Processors"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/procs"
+        app:layout_constraintLeft_toRightOf="@id/label_procs"
+        app:layout_constraintBaseline_toBaselineOf="@id/label_procs"
+        tools:text="4"/>
+
+    <TextView
+        android:id="@+id/label_iter"
+        android:layout_width="@dimen/label_width"
+        android:layout_height="@dimen/label_height"
+        android:text="Iterations"
+        app:layout_constraintTop_toBottomOf="@id/label_procs"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <EditText
+        android:id="@+id/iters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1000000"
+        app:layout_constraintLeft_toRightOf="@id/label_iter"
+        app:layout_constraintBaseline_toBaselineOf="@id/label_iter"/>
+
+    <TextView
+        android:id="@+id/label_threads"
+        android:layout_width="@dimen/label_width"
+        android:layout_height="@dimen/label_height"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_iter"
+        android:text="Threads"/>
+
+    <EditText
+        android:id="@+id/threads"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/label_threads"
+        app:layout_constraintBaseline_toBaselineOf="@id/label_threads"
+        android:text="4"/>
+
+    <TextView
+        android:id="@+id/label_cumulIters"
+        android:layout_width="@dimen/label_width"
+        android:layout_height="@dimen/label_height"
+        android:text="Cumul Iters"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_threads"/>
+
+    <TextView
+        android:id="@+id/cumulIters"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/label_height"
+        android:text="0"
+        app:layout_constraintLeft_toRightOf="@id/label_cumulIters"
+        app:layout_constraintBaseline_toBaselineOf="@id/label_cumulIters"/>
+
+
+    <TextView
+        android:id="@+id/label_pi"
+        android:layout_width="@dimen/label_width"
+        android:layout_height="@dimen/label_height"
+        android:text="Current Pi"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_cumulIters"/>
+
+    <TextView
+        android:id="@+id/pi"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/label_height"
+        android:text="0.0"
+        app:layout_constraintLeft_toRightOf="@+id/label_pi"
+        app:layout_constraintBaseline_toBaselineOf="@id/label_pi"/>
+
+    <TextView
+        android:id="@+id/label_calcTime"
+        android:layout_width="@dimen/label_width"
+        android:layout_height="@dimen/label_height"
+        android:text="Calc Time"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_pi"/>
+
+    <TextView
+        android:id="@+id/calcTime"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/label_height"
+        app:layout_constraintLeft_toRightOf="@id/label_calcTime"
+        app:layout_constraintBaseline_toBaselineOf="@id/label_calcTime"
+        android:text="0"/>
+
+    <Button
+        android:id="@+id/calc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CALC"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calcTime"
+        android:onClick="calc"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RESET"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calc"
+        android:onClick="reset"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
