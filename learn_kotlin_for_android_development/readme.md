@@ -1,4 +1,4 @@
-- page 425
+- page 437
 ----
 - class visibility modifiers
     - public: The instantiation can be done from anywhere inside and outside your program. This is the default.
@@ -672,4 +672,19 @@
             3. Wait for termination, as signaled by suitable functions from ExecutorService or ScheduledExecutorService, or by the Futures or ScheduledFutures you might have received in the previous step.
 
 - Kotlin Coroutines
-    -
+    - Basic Coroutines
+        - The most important thing to know about corouitines is that we need a coroutine scope before we can use the coroutine way of multithreading. Your options to use an existing scope if we already are running inside a coroutine or to generate a new scope are as follows:
+            - runBlocking { ... }. This enters a new blocking scope. Blocking here means the runBlocking() invocation will only return after all activities inside the { ... } lambda finished their work. The runBlocking() can be started fron inside or outside a coroutine scope. In both cases a fresh context is created that includes using the currently running thread for the job.
+            - runBlocking(context : CoroutineContext) { ... }. This is the same as runBlocking(), but with a base context as given by the parameter.
+            - GlobalScope. Use of this is discouraged. Use this singleton object if you want to use a scope that is tied to the application itself and its life cycle. You can, for example, use GlobalScope.launch{ ... } or GlobalScope.async{ ... }. Normally your should start from a runBlocking{ ... } instead. Not explicity using GlobalScope improves the structuring of your app.
+            - coroutineScope { ... }. This creates a new coroutine scope that inherits the context from the outer coroutine scope; that is, the scope in which the coroutineScope() gets involked. However, it overwrites the job and uses its own job derived from the contents of its lambda function parameter (the content of { ... }). This function can only be called from inside a scope. Using coroutineScope() is a prominent example for structured concurrency: Once any child inside the { ... } fails, all the rest of the children will fail as well and eventually the whole coroutinesScope() will fail.
+            - supervisorScope {... }. This is the same as coroutineScope(), but lets its child scopes run independent of each other. Inparticular, if any of the children get canceled, the other children and the supervisor scope do not get canceled.
+            - launch { ... }. This defines a backgroudn job. The lanuch() invocation returns immediately while the background job defined by the { ... } lambda starts doing its work in the background. The launch() returns an instance of class Job. You can use the join() funciton from Job to wait for the job to finish.
+            - aync { ... }. This is the same as launch(), but allows for the background job to produce a result. For this aim launch() returns an instance of class Deferred. You can use its await() function to retrieve the result; of course, this implies waiting for the job to have finished.
+            - Implement CoroutineScope. In any of your classes, you can implement class CoroutineScope. class MyClass: CoroutineScope { ... }. The problem with this approach is that, because CoroutineScope is just an interface, we need to implement the coroutine functionality by filling the coroutine context with sensible objects. A simple way to do that is using delegation. class MyClass : CoroutineScope by MainScope() { ... }, which delegates all coroutine builders to a MainScope object. That one is particularly useful for user interfaces. Once this is done we can freeluy use builders like launch() and async(), and also control functions like cancel(), from anywhere inside MyClass.
+    - Coroutine Context, A coroutineContext holds the state of the coroutine scope as a set of context elements.
+        - coroutineContext[Job]. This retrieves the Job instance that holds the instructions of which the coroutine consists.
+        - coroutineContext[CoroutineName]. Optionally, this retrieves the name of the coroutine. You can specify the name via coroutineContext + CoroutineName("My FancyCoroutine") as the first parameter of a coroutine builder (e.g., luanch() or async()) invocation.
+        - coroutineContext[CoroutineExceptionHandler]. This is an optionbal dedicated exception handler.
+        - coroutineContext[ContinuationInterceptor]. This internal item holds the object that is responsible for correctly continuing a coroutine after it was suspended and resumes its work.
+    - What a delay() Does
