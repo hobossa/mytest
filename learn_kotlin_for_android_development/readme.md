@@ -831,4 +831,6 @@
             // A supervisor leads to all coroutines handling their exceptions independent of each other. No child will, however, live longer than its parent.
             ```
 
--
+- XML lib: xerces:xercesImpl
+
+- JSON lib: com.fasterxml.jackson.core:jackson-core, com.fasterxml.jackson.core:jackson-databind
