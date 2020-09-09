@@ -6,13 +6,16 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import androidx.core.content.res.ResourcesCompat
+import kotlin.math.abs
 
 private const val STROKE_WIDTH = 12f // has to be float
 
 class MyCanvasView(context: Context) : View(context) {
 
-    private lateinit var extraCanvas: Canvas
-    private lateinit var extraBitmap: Bitmap
+    // Path representing the drawing so far
+    private val drawing = Path()
+    // Path representing what's currently being drawn
+    private val curPath = Path()
 
     private lateinit var frame: Rect
 
@@ -30,7 +33,6 @@ class MyCanvasView(context: Context) : View(context) {
         strokeCap = Paint.Cap.ROUND // default: BUTT
         strokeWidth = STROKE_WIDTH  // default: Hairline-width (really thin)
     }
-    private var path = Path()
 
     private var motionTouchEventX = 0f
     private var motionTouchEventY = 0f
@@ -46,26 +48,17 @@ class MyCanvasView(context: Context) : View(context) {
         // Calculate a rectangular frame around the picture.
         val inset = 40
         frame = Rect(inset, inset, width - inset, height - inset)
-
-        // a new bitmap and canvas are created every time the function executes. We need a new
-        // bitmap, because the size has changed. However, this is a memory leak, leaving the old
-        // bitmaps around. To fix this, recycle extraBitmap.
-        if (::extraBitmap.isInitialized) {
-            extraBitmap.recycle()
-        }
-
-        extraBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
-        // create a canvas instance from extraBitmap
-        extraCanvas = Canvas(extraBitmap)
-        // specify the background color in which to fill extraCanvas
-        extraCanvas.drawColor(backgroundColor)
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        canvas?.drawBitmap(extraBitmap, 0f, 0f, null)
+        canvas?.drawColor(backgroundColor)
         // Draw a frame around the canvas.
         canvas?.drawRect(frame, paint)
+        // Draw the drawing so far
+        canvas?.drawPath(drawing, paint)
+        // Draw any current squiggle
+        canvas?.drawPath(curPath, paint)
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -85,29 +78,29 @@ class MyCanvasView(context: Context) : View(context) {
     }
 
     private fun touchStart() {
-        path.reset()
-        path.moveTo(motionTouchEventX, motionTouchEventY)
+        curPath.reset()
+        curPath.moveTo(motionTouchEventX, motionTouchEventY)
         currentX = motionTouchEventX
         currentY = motionTouchEventY
     }
 
     private fun touchMove() {
-        val dx = Math.abs(motionTouchEventX - currentX)
-        val dy = Math.abs(motionTouchEventY - currentY)
+        val dx = abs(motionTouchEventX - currentX)
+        val dy = abs(motionTouchEventY - currentY)
         if (dx >= touchTolerance || dy >= touchTolerance) {
             // QuadTo() adds a quadratic bezier from the last point,
             // approaching control point (x1,y1), and ending at (x2,y2).
-            path.quadTo(currentX, currentY, (motionTouchEventX + currentX) / 2, (motionTouchEventY + currentY) / 2)
+            curPath.quadTo(currentX, currentY, (motionTouchEventX + currentX) / 2, (motionTouchEventY + currentY) / 2)
             currentX = motionTouchEventX
             currentY = motionTouchEventY
-            // Draw the path in the extra bitmap to cache it.
-            extraCanvas.drawPath(path, paint)
         }
         invalidate()
     }
 
     private fun touchUp() {
-        // Reset the path so it doesn't get drawn again.
-        path.reset()
+        // Add the current path to the drawing so far
+        drawing.addPath(curPath)
+        // Rewind the current path for the next touch
+        curPath.reset()
     }
 }
