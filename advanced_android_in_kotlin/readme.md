@@ -6,3 +6,4 @@
 - the notification is displayed outside your app. To make an intent work outside your app, you need to create a new PendingIntent.
 - To support devices running Android 7.1 (API level 25) or lower, you must also call setPriority() for each notification, using a priority constant from the NotificationCompat class.
 - You cannot get the size of the view in onCreate(), because the size has not been determined at this point. We can get the size in onSzieChanged()
+- Any constraints specified in a ConstraintSet will override the constraints specified in the layout file. When using MotionLayout, you should specify the constraints of any views that are animated in the motion scene XML file instead of in the layout. Any views that are not animated may be constrained in the layout instead of the motion scene.
