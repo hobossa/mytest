@@ -9,6 +9,7 @@
         motion:duration="1000">
        <KeyFrameSet>
        </KeyFrameSet>
+        <OnClick motion:targetId="@+id/red_star" />
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
