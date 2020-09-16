@@ -159,7 +159,7 @@
 
 - Functions with other functions as parameters are called higher order functioins.
 
-- Scoping Functions: appply, let, alse, run, and with (LET us ALSO RUN WITH APPLY.)
+- Scoping Functions: appply, let, also, run, and with (LET us ALSO RUN WITH APPLY.)
     - apply
         ```Kotlin
         // apply automatically returns the object instance.
