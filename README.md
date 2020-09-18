@@ -1,6 +1,6 @@
 # mytest
 ----
-#### Android todo (something that I was recommened to read to get futher informaton when I was reading some articles)
+#### Android todo (something that I was recommended to read to get further information when I was reading some articles)
 - [Easy Coroutines in Android: viewModelScope](https://medium.com/androiddevelopers/easy-coroutines-in-android-viewmodelscope-25bffb605471)
 - [Android Kotlin Fundamentals: ViewModel](https://codelabs.developers.google.com/codelabs/kotlin-android-training-view-model/#0)
 - [Dagger basics](https://developer.android.com/training/dependency-injection/dagger-basics)
